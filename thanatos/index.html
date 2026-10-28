@@ -1,0 +1,808 @@
+<!doctype html>
+<html lang="ru"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#05242e"><title>Танатос · Подводный атлас</title><meta name="description" content="Карта подводных обломков Танатоса. Рельеф, капсула Ханны и экспедиция Виртуоза."><style>
+:root{color-scheme:dark;--ink:#dcf0f0;--muted:#83aaae;--line:rgba(133,217,221,.18);--aqua:#5ce1e6;--green:#a6ef8d;--panel:rgba(5,30,39,.91);font-family:Inter,"Segoe UI",Arial,sans-serif}*{box-sizing:border-box}body{margin:0;background:#052431;color:var(--ink);overflow:hidden}button,a,input{-webkit-tap-highlight-color:transparent}button{font:inherit;color:inherit;cursor:pointer}button:focus-visible,a:focus-visible,canvas:focus-visible{outline:2px solid var(--aqua);outline-offset:4px}button{border:0}button:disabled{opacity:.45;cursor:default}svg{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;flex:none}.svg-defs{position:absolute;width:0;height:0;overflow:hidden}.topbar{height:82px;background:#06232c;display:flex;align-items:center;padding:0 28px;border-bottom:1px solid var(--line);gap:27px;position:relative;z-index:10}.brand{display:flex;align-items:center;gap:11px;color:#d6f6f5;text-decoration:none;font-size:25px;font-weight:650;letter-spacing:4px;line-height:1}.brand-mark{height:40px;width:40px;display:grid;place-items:center;background:#103843;clip-path:polygon(22% 0,78% 0,100% 22%,100% 78%,78% 100%,22% 100%,0 78%,0 22%);color:#6ee7e5}.brand-mark svg{width:26px;height:26px}.brand-small{display:block;letter-spacing:1.5px;font-size:6px;margin-top:7px;color:#84adb0}.header-divider{height:32px;width:1px;background:var(--line)}.eyebrow{font-size:9px;letter-spacing:2px;color:var(--muted);font-weight:600}.location h1{font-weight:500;font-size:19px;letter-spacing:.1px;margin:5px 0 0}.live-tag{display:inline-block;font:9px monospace;letter-spacing:1px;color:#9fe9d1;border:1px solid #316357;border-radius:3px;padding:3px 5px;vertical-align:middle;margin-left:8px}.header-actions{margin-left:auto;display:flex;align-items:center;gap:9px}.connection{font:9px monospace;letter-spacing:1px;color:#8ebdb8;margin-right:22px;display:flex;align-items:center;gap:7px}.connection i,.green-dot{display:inline-block;width:6px;height:6px;background:var(--green);border-radius:50%;box-shadow:0 0 10px #93ef8c66;flex:none}.icon-btn{height:36px;width:36px;display:inline-flex;align-items:center;justify-content:center;border:1px solid var(--line);border-radius:6px;background:transparent;position:relative}.icon-btn:hover,.secondary:hover{background:#16434c}.badge{position:absolute;right:-3px;top:-3px;border-radius:7px;background:#1f5d64;font-size:8px;padding:1px 4px}.help-button{font-size:17px;color:#a3c4c6}#mapArea{height:calc(100dvh - 82px);position:relative;overflow:hidden}#map{display:block;width:100%;height:100%;touch-action:none;cursor:grab}#map.dragging{cursor:grabbing}#map.position-mode{cursor:crosshair}.vignette{position:absolute;inset:0;pointer-events:none;box-shadow:inset 0 0 130px 20px #011b2e66;background:linear-gradient(0deg,#031e3144,transparent 26%,transparent 85%,#031e3122)}.glass{border:1px solid var(--line);background:var(--panel);box-shadow:0 12px 36px #00111a22;backdrop-filter:blur(18px);border-radius:10px}.expedition{position:absolute;left:24px;top:24px;width:276px;padding:18px}.card-kicker{display:flex;justify-content:space-between;align-items:center;font-size:8px;letter-spacing:1.3px;color:#8fb9b9}.card-kicker>span{display:flex;gap:7px;align-items:center}.plain{padding:0;background:none;font-size:19px;line-height:10px;color:#7fa7aa}.character{display:flex;align-items:center;gap:12px;margin-top:19px}.avatar{height:39px;width:39px;display:grid;place-items:center;border:1px solid #82d09355;border-radius:50%;color:var(--green);background:#9ded8c0a}.character h2{font-size:19px;font-weight:500;margin:0 0 5px}.character p{font-size:10px;color:#8db4b5;margin:0}.character p span{font-size:8px;color:#afe396;background:#8ac56a14;border:1px solid #8ac56a25;border-radius:3px;padding:2px 4px;margin-left:5px}.telemetry{display:flex;justify-content:space-between;margin-top:23px;gap:8px}.telemetry>div>span{display:block;font-size:7px;color:#6f9ca4;letter-spacing:1px}.telemetry strong{font-size:28px;font-weight:400;display:block;margin-top:6px;font-variant-numeric:tabular-nums}.telemetry small{font-size:12px;color:#a7c4c7}.telemetry .coords{font:11px monospace;line-height:33px;color:#bbd6d4;white-space:nowrap}.card-line{height:1px;background:var(--line);margin:18px 0}.scanner-title{display:flex;gap:8px;align-items:center;font-size:11px;letter-spacing:.6px}.scanner-title svg{width:15px;height:15px;color:#77c6cb}.muted{color:var(--muted);margin-left:auto;font-size:9px;letter-spacing:0}.mission-note{font-size:11px;color:#8aafb2;line-height:1.7;margin:12px 0 16px}.scan-controls{display:flex;gap:7px}.primary{height:39px;border:1px solid #63c6c766;background:#226d77;color:#ddfaf9;border-radius:5px;display:flex;justify-content:center;align-items:center;gap:9px;font-size:11px;transition:.2s}.primary:hover{background:#2b8690}.primary svg{width:16px;height:16px}.scan-controls .primary{flex:1}.scan-controls .icon-btn{height:39px;font-size:22px;color:#8cc6c7}.scanner-footer{margin-top:12px;display:flex;justify-content:space-between;font:7px monospace;letter-spacing:.7px;color:#68989c}.map-heading{position:absolute;top:28px;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;text-align:center;gap:7px;pointer-events:none;white-space:nowrap}.map-heading>span:last-child{font-size:8px;letter-spacing:3px;color:#90bec9a6}.north-indicator{position:absolute;right:43px;top:30px;text-align:center;display:flex;align-items:center;flex-direction:column;color:#b9dce3;pointer-events:none}.north-indicator>span{font:12px monospace}.north-indicator svg{height:48px;width:32px}.north-indicator small{font-size:6px;letter-spacing:2px;color:#81a7b3}.zoom-control{position:absolute;right:24px;bottom:155px;display:flex;flex-direction:column;align-items:center;padding:4px 0;width:40px;border-radius:7px}.zoom-control button{background:none;height:35px;width:38px;font-size:22px;color:#b9d8dc;display:grid;place-items:center}.zoom-control button:hover{color:var(--aqua)}.zoom-control span{font:8px monospace;color:#80a9b2;padding:4px 0}.zoom-control i{height:1px;width:22px;background:var(--line);margin:4px 0}.zoom-control button svg{height:17px;width:17px}.depth-legend{position:absolute;left:24px;bottom:49px;width:260px;padding:14px 15px;border-radius:7px;background:#062431d9}.legend-top{display:flex;justify-content:space-between;font:7px monospace;letter-spacing:1px;color:#90b8bd}.depth-gradient{height:5px;border-radius:2px;background:linear-gradient(90deg,#b4d9bd,#57c8bd,#22818e,#174b72,#092143);margin-top:13px}.legend-values{display:flex;justify-content:space-between;font:8px monospace;color:#91b1b6;margin-top:6px}.legend-symbols{display:flex;gap:14px;border-top:1px solid var(--line);padding-top:11px;margin-top:12px;font-size:8px;color:#a5c2c5;align-items:center}.legend-symbols>span{display:flex;align-items:center;gap:5px}.symbol-wreck{height:6px;width:9px;background:#aab9b3;transform:rotate(-20deg);border:1px solid #d7dfcf}.symbol-player{width:6px;height:6px;border-radius:50%;background:var(--green)}.symbol-cave{height:7px;width:10px;border:1px solid #98d9e3;border-radius:6px 6px 1px 1px}.bottom-center{position:absolute;bottom:49px;left:50%;transform:translateX(-50%);display:flex;align-items:center;flex-direction:column;gap:14px}.mode-hint{font-size:9px;letter-spacing:.2px;color:#b1ced2;background:#04263799;border-radius:4px;padding:6px 10px;white-space:nowrap;pointer-events:none}.toolbar{height:57px;padding:5px;display:flex;gap:3px;border-radius:9px;align-items:center;white-space:nowrap}.tool{display:flex;gap:8px;align-items:center;font-size:10px;border:1px solid transparent;border-radius:5px;background:none;color:#8fb3b9;padding:11px 13px;height:43px}.tool svg{height:17px;width:17px}.tool:hover{background:#0f404b}.tool.active{background:#164b55;border:1px solid #66cdd333;color:#cef3f2}.tool-divider{width:1px;height:23px;background:var(--line);margin:0 4px}.tool .green-dot{width:5px;height:5px}.map-scale{position:absolute;right:26px;bottom:65px;text-align:right;color:#adc9cd;font:8px monospace;display:flex;flex-direction:column;align-items:flex-end;gap:6px;pointer-events:none}#scaleBar{height:6px;border:1px solid #a6cdd1;border-top:0;width:100px}.map-scale small{font:7px monospace;letter-spacing:1px;color:#6899a7;margin-top:7px}.map-readout{position:absolute;left:25px;right:25px;bottom:16px;display:flex;justify-content:space-between;font:8px monospace;letter-spacing:1px;color:#7da8b3;pointer-events:none}.detail{position:absolute;right:80px;top:128px;width:270px;padding:20px}.detail-close{position:absolute;right:12px;top:9px;font-size:20px;background:none;color:#85aeb2}.detail-type{font:8px monospace;letter-spacing:1.5px;color:#74c4cd}.detail h2{font-size:21px;font-weight:450;line-height:1.2;margin:12px 0}.detail .description{font-size:11px;line-height:1.75;color:#9fc0c5;margin:13px 0}.detail-stats{display:flex;gap:18px;font:10px monospace;color:#c4dcdb;padding:12px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}.detail-stats small{display:block;color:#719ba4;font:7px monospace;margin-bottom:5px;letter-spacing:1px}.detail .primary{width:100%;margin-top:15px}.detail-foot{font-size:9px;color:#739ba5;margin-top:10px;line-height:1.6}.priority{display:inline-block;font-size:8px;letter-spacing:1px;color:#edc98e;border:1px solid #ad87594d;padding:4px 6px;border-radius:3px}.found-list{list-style:none;padding:0;margin:12px 0;font-size:11px;color:#b7d9d6}.found-list li{padding:7px 0;border-bottom:1px solid #76a7a318;display:flex;justify-content:space-between;gap:10px}.layer-panel{position:absolute;left:50%;transform:translateX(67px);bottom:120px;width:215px;padding:17px;z-index:8}.panel-title{font-size:12px;margin-bottom:13px;color:#d5e5e3}.layer-panel label{display:flex;align-items:center;gap:9px;font-size:11px;color:#a8c4c6;margin:13px 0;cursor:pointer}.layer-panel input{accent-color:#6bc6c9;width:13px;height:13px}.toast{position:absolute;left:50%;transform:translate(-50%,12px);bottom:150px;max-width:480px;border:1px solid #75bfc455;background:#092f3bf5;padding:13px 20px;font-size:12px;color:#c7eeea;border-radius:6px;text-align:center;opacity:0;pointer-events:none;transition:.2s;z-index:30}.toast.show{opacity:1;transform:translate(-50%,0)}dialog{border:1px solid #4f8d955c;border-radius:13px;background:#082b36;color:var(--ink);box-shadow:0 40px 150px #00151e;padding:36px;max-width:540px;width:calc(100% - 32px);max-height:88dvh;overflow-y:auto}dialog::backdrop{background:#00121bc9;backdrop-filter:blur(6px)}.dialog-close{position:absolute;right:18px;top:13px;background:none;color:#9abec0;font-size:26px}dialog h2{font-size:29px;font-weight:450;line-height:1.22;margin:16px 0}dialog p{font-size:12px;line-height:1.8;color:#9cbcc2}.help-steps{display:flex;flex-direction:column;gap:19px;margin:25px 0}.help-steps>div{display:flex;gap:17px}.help-steps b{font:11px monospace;color:#5dbfc4;padding-top:3px}.help-steps span{color:#88aeb5;font-size:11px;line-height:1.7}.help-steps strong{display:block;color:#d1e5e4;font-size:12px;font-weight:500;margin-bottom:3px}.small-note{font-size:10px!important;line-height:1.75!important;color:#719aa5!important}.wide{width:100%;justify-content:space-between;padding:0 17px;margin-top:23px}.journal-summary{display:flex;gap:25px;border-bottom:1px solid var(--line);padding:10px 0 20px;margin-bottom:20px}.journal-summary strong{display:block;font-size:27px;color:#b9e5df;font-weight:400}.journal-summary span{font-size:9px;color:#7fa9af}.journal-entry{padding:14px 0;border-bottom:1px solid var(--line)}.journal-entry>div{display:flex;justify-content:space-between;gap:12px;font-size:12px}.journal-entry small{font-size:9px;color:#78bca3}.journal-entry p{font-size:10px;line-height:1.7;margin:7px 0 0}.journal-actions{display:flex;gap:7px;margin-top:25px;flex-wrap:wrap}.secondary{border:1px solid var(--line);background:#123d47;border-radius:5px;padding:10px 13px;font-size:10px}.text-btn{background:none;font-size:10px;margin-left:auto}.danger{color:#d5a08e}.loading{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;gap:18px;background:#052c3b;z-index:50;font:10px monospace;letter-spacing:3px;transition:opacity .5s}.loading.done{opacity:0;pointer-events:none}.loading-orbit{width:30px;height:30px;border:1px solid #90d5d333;border-top-color:#88dbd9;border-radius:50%;animation:spin 1.2s linear infinite}@keyframes spin{to{transform:rotate(360deg)}}[hidden]{display:none!important}.map-corner{position:absolute;width:13px;height:13px;pointer-events:none;opacity:.4}.map-corner-tl{border-left:1px solid #84c4d1;border-top:1px solid #84c4d1;left:13px;top:13px}.map-corner-br{border-right:1px solid #84c4d1;border-bottom:1px solid #84c4d1;right:13px;bottom:35px}.expedition.collapsed .mission-body{display:none}.expedition.collapsed .character{margin-top:13px}.expedition.collapsed{padding-bottom:17px}
+@media(min-width:1600px){.detail{right:95px;top:135px}.expedition{left:32px;top:32px}.depth-legend{left:32px;bottom:55px}}
+@media(max-width:1150px){.connection{display:none}.detail{right:76px;top:115px;width:245px;padding:17px}.depth-legend{width:215px}.legend-symbols{gap:8px;font-size:7px}.map-scale small{display:none}.map-heading{left:57%}.tool{padding:11px 10px;font-size:9px}.mode-hint{font-size:8px}.bottom-center{left:56%}.expedition{width:250px}}
+@media(max-width:780px){.topbar{height:65px;padding:0 15px;gap:15px}.brand{font-size:20px;letter-spacing:2px}.brand-mark{height:30px;width:30px}.brand-mark svg{width:22px}.brand-small{font-size:5px;letter-spacing:1px}.header-divider{display:none}.location h1{font-size:14px}.location .eyebrow{font-size:6px;letter-spacing:1px}.live-tag{display:none}.header-actions{gap:5px}.icon-btn{height:30px;width:30px}.header-actions svg{width:15px}.help-button{display:none}#mapArea{height:calc(100dvh - 65px)}.expedition{left:12px;top:12px;width:220px;padding:14px}.card-kicker{font-size:7px;letter-spacing:.8px}.character{margin-top:13px;gap:9px}.character h2{font-size:17px}.avatar{height:32px;width:32px}.telemetry{margin-top:16px}.telemetry strong{font-size:23px}.telemetry .coords{font-size:9px}.telemetry>div>span{font-size:6px}.card-line{margin:12px 0}.mission-note{display:none}.scanner-title{font-size:10px;margin-bottom:11px}.scanner-title .muted{font-size:8px}.scan-controls .primary{font-size:10px;height:35px}.scan-controls .icon-btn{height:35px;width:30px}.scanner-footer{font-size:6px}.map-heading{display:none}.north-indicator{right:20px;top:20px}.north-indicator small{display:none}.detail{right:12px;top:auto;bottom:125px;width:min(280px,calc(100% - 80px));padding:16px;max-height:45dvh;overflow:auto}.detail h2{font-size:18px;margin:9px 0}.detail .description{font-size:10px;margin:10px 0}.detail-stats{padding:10px 0}.detail .primary{height:35px;margin-top:11px}.depth-legend{display:none}.bottom-center{bottom:44px;left:50%;gap:10px}.toolbar{height:53px;padding:4px}.tool{gap:6px;height:41px;padding:9px;font-size:9px}.tool svg{width:16px}.tool-divider{margin:0}.mode-hint{font-size:8px;max-width:95vw;white-space:normal;text-align:center}.zoom-control{right:12px;bottom:155px;width:35px}.zoom-control button{width:33px;height:30px}.map-scale{right:15px;bottom:108px}.map-readout{font-size:6px;left:15px;right:15px;bottom:15px;letter-spacing:.5px}.layer-panel{left:auto;right:12px;transform:none;bottom:113px}.toast{bottom:110px;max-width:90%;width:max-content;padding:11px 14px;font-size:11px}dialog{padding:27px}dialog h2{font-size:25px}.journal-actions{gap:6px}}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+
+.share-label{display:block;font:8px monospace;letter-spacing:1px;color:#80adb5;margin:25px 0 10px}.share-input{width:100%;background:#031f2a;border:1px solid #48889466;color:#bddbdb;padding:13px;border-radius:5px;font:11px monospace;outline-color:#73cfd0}.share-input:focus{border-color:#73cfd0}
+/* Atlas 02: readable field controls and progressive exploration tools. */
+:root{--muted:#96b9bc;--line:rgba(153,218,217,.2)}
+.topbar{height:76px;padding:0 25px;gap:22px}.location h1{font-size:20px}.header-actions{gap:8px}.header-text-btn{display:flex;align-items:center;gap:8px;height:38px;padding:0 13px;border:1px solid var(--line);border-radius:6px;background:#123a44;font-size:11px;color:#c6e4e2}.header-text-btn:hover{background:#1a515c}.header-text-btn svg{width:16px;height:16px}.header-text-btn[aria-expanded="true"]{border-color:#6bcbd488;background:#1a515c}.connection{font-size:8px;margin-right:12px}.icon-btn{height:38px;width:38px}#mapArea{height:calc(100dvh - 76px)}.glass{background:rgba(5,30,39,.93);box-shadow:0 10px 42px #00121b38}.expedition{width:274px;padding:19px;top:24px;left:24px}.mission-note{font-size:10px;color:#9fc4c1;line-height:1.6;min-height:16px;margin:13px 0 10px}.telemetry>div>span{font-size:8px;letter-spacing:.6px;color:#89adb3}.telemetry .coords{font-size:11px}.card-kicker{font-size:8px}.scanner-title .muted{font-size:10px}.bearing-control{display:flex;align-items:center;gap:10px;margin:14px 0 15px}.bearing-control label{font-size:9px;color:#8fb3bb;white-space:nowrap}.bearing-control input{accent-color:#8ed2c4;min-width:20px;flex:1;height:14px;cursor:ew-resize}.scan-progress{height:2px;margin-top:10px;background:#87b6bb18;overflow:hidden;border-radius:2px}.scan-progress i{height:2px;width:0;display:block;background:#a9e2cb}.scan-controls .primary{font-size:11px;height:41px}.scan-controls .icon-btn{height:41px}.scanner-footer{font-size:8px;letter-spacing:.5px;margin-top:9px}.expedition-footer{display:flex;align-items:center;justify-content:space-between;border-top:1px solid var(--line);padding-top:11px;margin-top:16px;gap:6px}.expedition-footer>span{font:6px monospace;letter-spacing:.5px;color:#73a4a8}.expedition-footer .text-btn{margin:0;padding:5px 0;font-size:9px;white-space:nowrap;color:#a7c9c7}.expedition-footer .save-error{color:#e8ba8c}.expedition.collapsed{padding:16px 19px}.expedition.collapsed .character{margin-top:12px}.zoom-control{top:103px;bottom:auto;right:23px;width:42px}.zoom-control button{width:40px;height:38px}.zoom-control button svg{height:17px}.zoom-control button:hover{background:#15404b66}.north-indicator{right:28px;top:15px}.north-indicator small{display:none}.north-indicator svg{height:39px}.north-indicator>span{font-size:10px}.detail{right:80px;top:103px;width:292px;padding:21px;max-height:calc(100% - 165px);overflow-y:auto;overscroll-behavior:contain;scrollbar-width:thin;scrollbar-color:#39737c transparent}.detail h2{font-size:22px}.detail .description{font-size:12px;line-height:1.7}.detail-stats{font-size:11px;gap:17px}.detail-stats small{font-size:8px}.detail-type{font-size:9px;letter-spacing:1.2px}.detail-foot{font-size:10px;color:#8aafb5}.detail-close{min-width:30px;min-height:30px;top:5px;right:5px}.condition-tag{font-size:9px;color:#a9bca9;line-height:1.6;margin-top:9px}.substrate{font-size:9px;color:#7fa4aa;line-height:1.6;margin-top:9px}.detail-tools{display:flex;gap:7px;margin-top:16px;padding-top:14px;border-top:1px solid var(--line)}.detail-tools .secondary{display:flex;align-items:center;justify-content:center;gap:7px;flex:1;min-height:34px;font-size:10px;padding:7px}.detail-tools svg{height:14px;width:14px}.note-label{display:block;font:8px monospace;letter-spacing:1px;color:#83afb6;margin:18px 0 9px}#objectNote{width:100%;min-height:74px;resize:vertical;border:1px solid #63969c33;border-radius:4px;background:#082732;color:#bddbd5;font:11px/1.6 Segoe UI,Arial,sans-serif;padding:9px;outline-color:#7fc0c8}#objectNote::placeholder{color:#628c96}.note-status{font-size:8px;color:#5f8d98;margin:6px 0}.detail .priority{font-size:8px;line-height:1.5}.found-list{font-size:11px;line-height:1.5}.hover-tip{position:absolute;z-index:5;pointer-events:none;max-width:220px;padding:10px 13px;background:#062734f2;border:1px solid #5d99a06b;border-radius:6px;box-shadow:0 8px 24px #001c3344}.hover-tip strong{font-size:11px;line-height:1.5;display:block;font-weight:500;color:#d8ebe2}.hover-tip span{display:block;font:9px monospace;margin-top:4px;color:#96bec1}.bottom-center{left:50%;bottom:46px}.toolbar{height:60px;gap:2px;padding:5px}.tool{height:47px;padding:11px 14px;font-size:11px}.tool-divider{margin:0 2px}.mode-hint{font-size:10px;color:#c2d8d7;letter-spacing:0;padding:7px 11px;max-width:550px;text-align:center;line-height:1.5}.map-scale{bottom:53px;right:221px}.map-scale small{font-size:6px;letter-spacing:.7px}.depth-legend{bottom:47px;width:236px;padding:13px 14px}.legend-top,.legend-values{font-size:8px}.legend-symbols{font-size:8px;gap:10px}.map-readout{font-size:8px}.minimap{position:absolute;right:24px;bottom:47px;width:178px;padding:0;overflow:hidden;border-radius:7px}.minimap>div{height:30px;display:flex;justify-content:space-between;align-items:center;padding:0 11px;border-bottom:1px solid var(--line)}.minimap>div span{font:7px monospace;letter-spacing:1px;color:#90b7bb}.minimap .plain{height:28px;min-width:22px;font-size:19px}.minimap canvas{width:176px;height:132px;display:block;cursor:crosshair;touch-action:manipulation}.minimap.detail-open{display:none}.navigation,.route-panel{position:absolute;left:24px;top:24px;width:316px;max-height:calc(100% - 155px);padding:20px;z-index:7;overflow:hidden;display:flex;flex-direction:column}.navigation-open .expedition,.navigation-open .depth-legend,body:has(#routePanel:not([hidden])) .expedition,body:has(#routePanel:not([hidden])) .depth-legend{visibility:hidden}.drawer-heading,.route-heading{display:flex;align-items:flex-start;justify-content:space-between;gap:10px}.drawer-heading h2,.route-heading h2{font-size:22px;font-weight:450;line-height:1.2;margin:10px 0 18px}.drawer-heading .eyebrow{font-size:7px;letter-spacing:1.4px}.drawer-heading>.icon-btn{width:27px;height:27px;background:transparent;border:0;font-size:22px;flex:none;margin-top:-6px;margin-right:-6px;color:#8aadb4}.search-input{width:100%;background:#0b2c38;border:1px solid #6ba6ad44;color:#c2e2dc;padding:12px 13px;border-radius:5px;font:11px Segoe UI,Arial,sans-serif;outline-color:#78bbc5}.search-input::placeholder{color:#6c98a3}.filter-tabs{display:flex;gap:4px;margin:14px 0 15px;flex:none}.filter-tabs button{font-size:10px;flex:1;height:32px;border-radius:4px;background:none;color:#8aadb6;border:1px solid transparent;padding:4px}.filter-tabs button.active{border-color:#66bec557;color:#cce6df;background:#1b4a53}.list-caption{display:flex;justify-content:space-between;gap:10px;color:#719fa9;font:7px monospace;letter-spacing:.5px;padding-bottom:12px;border-bottom:1px solid var(--line)}.object-list{overflow-y:auto;overscroll-behavior:contain;scrollbar-width:thin;scrollbar-color:#39737c transparent;min-height:80px}.object-row{width:100%;padding:13px 0;display:flex;align-items:center;gap:11px;border-bottom:1px solid #6b9b9f24;text-align:left;background:none;min-height:65px}.object-row:hover{background:#1c526144}.object-row-icon{border:1px solid #6d999c55;color:#aec7bf;width:26px;height:28px;border-radius:4px;display:grid;place-items:center;font:15px monospace;flex:none}.object-row-icon.done{color:#a5d893;border-color:#a5d89355}.object-row-main{min-width:0;flex:1}.object-row-main strong{font-size:12px;font-weight:450;line-height:1.5;color:#cde0dc;display:block}.object-row-main small{font:7px/1.5 monospace;letter-spacing:.2px;color:#739da6;display:block;margin-top:5px}.object-row-distance{font:10px monospace;color:#a2c5c4;text-align:right;flex:none}.object-row-distance small{display:block;color:#6ba8af;font-size:12px;margin-top:8px}.empty-list{font-size:11px;color:#7fa9b2;line-height:1.8;margin:20px 0 8px}.route-panel{width:304px;padding:20px;overflow-y:auto;scrollbar-width:thin}.route-heading .eyebrow{font-size:7px}.route-heading .plain{font-size:22px;min-width:20px;height:22px}.route-stats{display:flex;justify-content:space-between;gap:10px;padding:0 0 18px}.route-stats strong{font-size:25px;font-weight:400;display:block;color:#c9e5d8;white-space:nowrap}.route-stats small{font-size:10px;color:#7fa3a6}.route-stats span{font:6px monospace;letter-spacing:.5px;color:#80a7af;display:block;margin-top:5px}#profile{width:100%;height:85px;border-radius:4px;border:1px solid var(--line)}.profile-caption{display:flex;justify-content:space-between;font:7px monospace;letter-spacing:.5px;color:#7fa6ab;margin-top:7px}.route-stops{max-height:200px;overflow-y:auto;scrollbar-width:thin;margin-top:17px}.route-stop{display:flex;width:100%;gap:9px;text-align:left;align-items:center;min-height:37px;background:transparent;border-bottom:1px solid #6a9e9e26;color:#a9c7c4;padding:8px 0}.route-stop b{font:9px monospace;color:#d1c29c}.route-stop span{font-size:10px;flex:1}.route-stop small{font:9px monospace;color:#80a8ad}.route-actions{display:flex;justify-content:space-between;gap:8px;margin-top:16px}.route-hint{font-size:9px;line-height:1.7;color:#729da6;margin:15px 0 0}.route-actions .secondary{padding:8px 12px}.route-actions .text-btn{color:#a2bbbd}.layer-panel{bottom:120px;left:50%;transform:translateX(40px);max-height:calc(100% - 165px);overflow-y:auto;width:224px}.layer-panel .wide{margin-top:17px;font-size:10px;padding:9px 7px}.layer-panel label{font-size:11px}.restore-ui{position:absolute;right:22px;top:22px;color:#b9d8d2;padding:11px 15px;font-size:11px;z-index:15}.cinematic .topbar{display:none}.cinematic #mapArea{height:100dvh}.cinematic #mapArea> :not(#map):not(.vignette):not(#restoreUi):not(#toast){display:none!important}.cinematic .vignette{box-shadow:inset 0 0 140px #001d3433;background:none}.toast{bottom:150px;line-height:1.6}.journal-target{background:none;padding:0;color:#c3ddd4;text-align:left;font-size:12px;line-height:1.6}.journal-target:hover{color:#8de8e2}.cargo-summary{border:1px solid #6c9d9055;background:#153d3d55;border-radius:6px;padding:15px;margin-bottom:12px}.cargo-summary .found-list{margin-bottom:0;font-size:10px}.ecology-content{margin:20px 0}.ecology-content article{display:flex;gap:16px;padding:17px 0;border-top:1px solid var(--line)}.ecology-number{font:12px monospace;color:#7ac3bc;padding-top:3px}.ecology-content h3{font-size:15px;font-weight:450;margin:0 0 6px;color:#c9e1d6}.ecology-content small{font:8px monospace;letter-spacing:.8px;text-transform:uppercase;color:#77a8a6}.ecology-content p{font-size:11px;line-height:1.75;margin:8px 0 0}.share-actions{margin-top:12px}.dialog-close{height:36px;min-width:36px}.share-input{font-size:12px}.journal-actions .secondary{min-height:38px}.object-row:focus-visible{outline-offset:-2px}button:disabled:hover{background:inherit}
+@media(max-width:1150px){.brand-small{font-size:5px}.brand{font-size:23px;letter-spacing:3px}.header-divider{display:none}.topbar{gap:20px}.location h1{font-size:18px}.expedition{width:250px;padding:17px}.telemetry .coords{font-size:10px}.telemetry>div>span{font-size:7px}.detail{width:270px;padding:18px;right:77px}.bottom-center{left:50%;bottom:42px}.tool{font-size:10px;padding:10px 11px}.depth-legend{width:203px}.legend-symbols{font-size:7px;gap:8px}.map-scale{bottom:103px;right:220px}.mode-hint{font-size:9px}.navigation{width:300px}.route-panel{width:282px}.map-heading{left:56%;top:24px}}
+@media(max-width:900px){.minimap{display:none}.depth-legend{display:none}.map-scale{right:23px;bottom:115px}.connection{display:none}.header-actions{gap:6px}.topbar{padding:0 17px;gap:15px}.header-text-btn{padding:0 10px}.location .eyebrow{font-size:7px}.map-heading{display:none}.detail{max-height:calc(100% - 190px)}.navigation{max-height:calc(100% - 140px)}}
+@media(max-width:620px){.topbar{height:66px;padding:0 10px;gap:10px}.brand{gap:0}.brand>span:last-child{display:none}.brand-mark{width:32px;height:34px}.brand-mark svg{width:24px}.location{min-width:0;flex:1}.location h1{font-size:14px;line-height:1.25;white-space:normal;margin:0;max-width:160px}.location .eyebrow,.live-tag{display:none}.header-actions{gap:3px;margin-left:0}.header-actions>.icon-btn,.header-text-btn{height:38px;width:34px;padding:0;flex:none}.header-text-btn span{display:none}.header-text-btn{justify-content:center}.header-text-btn svg{width:18px}.header-actions #guideBtn{display:none}.header-actions .help-button{display:flex}#mapArea{height:calc(100dvh - 66px)}.expedition{left:12px;top:12px;width:221px;padding:14px}.character{margin-top:14px}.telemetry{margin-top:17px}.telemetry>div>span{font-size:6px}.telemetry .coords{font-size:9px;line-height:28px}.telemetry strong{font-size:24px}.card-kicker{font-size:7px;letter-spacing:.8px}.mission-note{display:block;font-size:9px;margin:9px 0}.bearing-control{margin:10px 0;gap:6px}.bearing-control label{font-size:8px}.scanner-title{margin:0;font-size:10px}.scanner-title .muted{font-size:8px}.scan-controls .primary{height:39px;font-size:10px}.scan-controls .icon-btn{height:39px;width:34px}.scanner-footer{font-size:6px}.expedition-footer{margin-top:12px;padding-top:9px}.expedition-footer>span{font-size:5px}.expedition-footer .text-btn{font-size:8px}.expedition.collapsed{padding:13px 14px}.zoom-control{right:12px;top:80px;width:38px;padding:3px 0}.zoom-control button{width:36px;height:37px}.zoom-control span{font-size:7px}.north-indicator{right:17px;top:15px}.bottom-center{left:50%;bottom:31px;gap:8px;width:calc(100% - 20px)}.toolbar{height:57px;gap:0;padding:4px;max-width:100%;width:100%;justify-content:space-between}.tool{flex:1;gap:4px;flex-direction:column;justify-content:center;height:48px;padding:5px 7px;font-size:9px}.tool svg{height:17px;width:17px}.tool-divider{display:none}.mode-hint{font-size:8px;line-height:1.4;max-width:100%;padding:5px 8px}.map-readout{bottom:9px;left:12px;right:12px;font-size:6px}.map-readout>span:last-child{display:none}.map-scale{bottom:112px;right:14px;font-size:7px}.map-scale small{display:none}.detail{top:auto;right:12px;left:12px;bottom:114px;width:auto;max-height:calc(100% - 160px);padding:20px;z-index:8;border-radius:11px}.detail h2{font-size:22px;max-width:88%}.detail .description{font-size:12px}.detail-stats{gap:24px}.detail .primary{min-height:43px}.detail-tools .secondary{min-height:39px}.detail-close{min-height:40px;min-width:40px}.detail-type{font-size:8px}.navigation,.route-panel{top:12px;left:12px;width:calc(100% - 70px);max-height:calc(100% - 126px);padding:18px}.navigation{width:calc(100% - 24px);z-index:9}.drawer-heading h2,.route-heading h2{font-size:23px}.search-input{font-size:12px;padding:13px;min-height:44px}.filter-tabs button{height:38px;font-size:11px}.object-row{min-height:72px;padding:14px 0}.object-row-main strong{font-size:13px}.object-row-main small{font-size:8px}.object-row-distance{font-size:11px}.drawer-heading>.icon-btn{width:38px;height:38px}.route-panel{z-index:7;width:calc(100% - 70px)}.route-stops{max-height:120px}.route-stop{min-height:42px}.route-stop span{font-size:11px}.route-stats strong{font-size:26px}.route-stats span{font-size:6px}.route-heading .plain{width:30px;min-height:32px}.route-hint{font-size:10px}.layer-panel{left:auto;right:12px;bottom:99px;transform:none;width:240px;max-height:calc(100% - 125px);z-index:10}.layer-panel label{min-height:27px;margin:9px 0;font-size:12px}.layer-panel input{height:16px;width:16px}.toast{bottom:112px;font-size:11px;max-width:calc(100% - 24px);width:max-content;z-index:20}.hover-tip{display:none}dialog{padding:27px;max-height:90dvh}dialog h2{font-size:25px}.journal-summary{gap:18px}.journal-summary span{font-size:8px}.journal-actions .secondary{min-height:43px}.share-input{min-height:44px}.restore-ui{top:14px;right:14px;font-size:10px}.cinematic #mapArea{height:100dvh}}
+@media(max-height:650px) and (min-width:621px){.expedition{top:12px;padding:14px;width:250px}.character{margin-top:12px}.telemetry{margin-top:13px}.card-line{margin:12px 0}.mission-note{margin:8px 0}.bearing-control{margin:8px 0}.expedition-footer{margin-top:10px}.detail{top:25px;max-height:calc(100% - 110px);right:82px}.navigation,.route-panel{top:12px;max-height:calc(100% - 100px)}.depth-legend{display:none}.minimap{display:none}.zoom-control{top:70px}.north-indicator{top:8px}.bottom-center{bottom:22px}.mode-hint{display:none}.map-readout{bottom:7px}.map-scale{bottom:100px;right:24px}}
+
+</style></head>
+<body>
+<svg class="svg-defs" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"><defs>
+<symbol id="i-search" viewBox="0 0 24 24"><circle cx="10" cy="10" r="6"/><path d="m15 15 6 6"/></symbol><symbol id="i-route" viewBox="0 0 24 24"><circle cx="5" cy="18" r="3"/><circle cx="19" cy="6" r="3"/><path d="M5 15V9a4 4 0 0 1 4-4h3m0 0-3-3m3 3-3 3M8 18h7a4 4 0 0 0 4-4v-5"/></symbol><symbol id="i-flag" viewBox="0 0 24 24"><path d="M5 22V3m0 0c5-4 9 4 14 0v11c-5 4-9-4-14 0"/></symbol><symbol id="i-cross" viewBox="0 0 24 24"><path d="M12 2v5m0 10v5M2 12h5m10 0h5"/><circle cx="12" cy="12" r="5"/></symbol>
+<symbol id="i-scan" viewBox="0 0 24 24"><path d="M4 9V4h5m6 0h5v5m0 6v5h-5M9 20H4v-5M4 12h16"/><circle cx="12" cy="12" r="3"/></symbol>
+<symbol id="i-layers" viewBox="0 0 24 24"><path d="m12 3 10 5-10 5L2 8Zm-10 9 10 5 10-5M2 16l10 5 10-5"/></symbol>
+<symbol id="i-pin" viewBox="0 0 24 24"><circle cx="12" cy="10" r="3"/><path d="M19 10c0 6-7 11-7 11S5 16 5 10a7 7 0 0 1 14 0Z"/></symbol>
+<symbol id="i-box" viewBox="0 0 24 24"><path d="m3 6 9-4 9 4v12l-9 4-9-4Zm0 0 9 5 9-5m-9 5v11m-5-18 10 5"/></symbol>
+<symbol id="i-arrow" viewBox="0 0 24 24"><path d="m9 5 7 7-7 7"/></symbol>
+<symbol id="i-home" viewBox="0 0 24 24"><path d="m3 11 9-8 9 8M5 10v11h14V10M9 21v-7h6v7"/></symbol>
+<symbol id="i-share" viewBox="0 0 24 24"><circle cx="5" cy="12" r="3"/><circle cx="19" cy="5" r="3"/><circle cx="19" cy="19" r="3"/><path d="m8 10 8-4M8 14l8 4"/></symbol>
+<symbol id="i-journal" viewBox="0 0 24 24"><path d="M6 3h14v18H6a3 3 0 0 1 0-6h14M6 3a3 3 0 0 0-3 3v12M8 7h8M8 11h6"/></symbol>
+</defs></svg>
+<header class="topbar"><a class="brand" href="#" aria-label="Обзор карты"><span class="brand-mark"><svg><use href="#i-scan"/></svg></span><span>NEID<span class="brand-small">EXPLORATION SYSTEM</span></span></a><div class="header-divider"></div><div class="location"><span class="eyebrow">ЛОКАЛЬНЫЙ АТЛАС / ОКЕАН</span><h1>Обломки Танатоса <span class="live-tag">АТЛАС 02</span></h1></div><div class="header-actions"><span class="connection"><i></i> ПОЛЕВАЯ СЕССИЯ</span><button class="header-text-btn" id="navBtn" aria-expanded="false" aria-label="Объекты и поиск" title="Объекты и поиск"><svg><use href="#i-search"/></svg><span>Объекты</span></button><button class="icon-btn" id="journalBtn" title="Журнал находок" aria-label="Журнал находок"><svg><use href="#i-journal"/></svg><span class="badge" id="journalCount">0</span></button><button class="icon-btn" id="shareBtn" title="Скопировать ссылку с позицией и прогрессом" aria-label="Поделиться состоянием карты"><svg><use href="#i-share"/></svg></button><button class="icon-btn" id="guideBtn" aria-label="Атлас жизни океана" title="Жизнь океана">♧</button><button class="icon-btn help-button" id="helpBtn" aria-label="Как пользоваться">?</button></div></header>
+<main id="mapArea"><canvas id="map" tabindex="0" aria-label="Интерактивная подводная карта. Перемещайте вид мышью, приближайте колёсиком. Кнопка Позиция позволяет указать местонахождение персонажа."></canvas><div class="vignette"></div>
+<div class="map-corner map-corner-tl"></div><div class="map-corner map-corner-br"></div>
+<aside class="expedition glass"><div class="card-kicker"><span><i class="green-dot"></i> АКТИВНАЯ ЭКСПЕДИЦИЯ</span><button id="collapseMission" class="plain" aria-label="Свернуть сведения">−</button></div><div class="character"><span class="avatar"><svg><use href="#i-cross"/></svg></span><div><h2>Виртуоз</h2><p>ТБС «Оплот» <span>Штатный</span></p></div></div><div class="mission-body"><div class="telemetry"><div><span>ГЛУБИНА</span><strong id="depthValue">—<small> м</small></strong></div><div><span>ПОЗИЦИЯ ОТ КАПСУЛЫ</span><strong id="coordValue" class="coords">—</strong></div></div><div class="card-line"></div><div class="scanner-title"><svg><use href="#i-scan"/></svg><span>HEAF-K10</span><span class="muted">90° / 100 м</span></div><p id="regionValue" class="mission-note">Поле разрушения</p><div class="bearing-control"><label for="bearingInput">Курс сканирования</label><input id="bearingInput" type="range" min="0" max="359" value="135" aria-label="Курс сканирования в градусах"></div><div class="scan-controls"><button id="scanBtn" class="primary"><svg><use href="#i-scan"/></svg>Сканировать сектор</button><button id="turnBtn" class="icon-btn" title="Повернуть сектор на 90°" aria-label="Повернуть сектор на 90 градусов">↻</button></div><div class="scan-progress"><i id="scanProgress"></i></div><div class="scanner-footer"><span id="bearingValue">КУРС 135°</span><span id="scanStatus">СИСТЕМА ГОТОВА</span></div><div class="expedition-footer"><span id="saveStatus">ПРОГРЕСС СОХРАНЯЕТСЯ</span><button id="undoPosition" class="text-btn" disabled>↶ Позиция</button></div></div></aside>
+<div class="map-heading"><span class="eyebrow">THANATOS / WRECK SITE</span><span>ПОДВОДНАЯ РАЗВЕДКА</span></div>
+<div class="north-indicator"><span>N</span><svg viewBox="0 0 32 48"><path d="m16 5 8 28-8-5-8 5Z" fill="#b4edf0"/><path d="M16 5v37" stroke="#b4edf0" opacity=".4"/></svg><small>СЕВЕР</small></div>
+<div id="hoverTip" class="hover-tip" hidden></div><aside id="navigation" class="navigation glass" hidden><div class="drawer-heading"><div><span class="eyebrow">НАВИГАЦИЯ / ИЗВЕСТНЫЕ ОБЪЕКТЫ</span><h2>Куда направимся?</h2></div><button id="closeNav" class="icon-btn" aria-label="Закрыть список объектов">×</button></div><input id="objectSearch" class="search-input" type="search" placeholder="Название, номер или ориентир…" aria-label="Поиск объектов"><div class="filter-tabs" id="objectFilters"><button data-filter="priority" class="active">Приоритет</button><button data-filter="all">Все</button><button data-filter="signals">Сигналы</button><button data-filter="marks">Метки</button></div><div class="list-caption"><span id="resultCount"></span><span>БЛИЖАЙШИЕ СНАЧАЛА</span></div><div id="objectList" class="object-list"></div></aside>
+<aside id="routePanel" class="route-panel glass" hidden><div class="route-heading"><div><span class="eyebrow">ПЛАН ОБСЛЕДОВАНИЯ</span><h2>Маршрут экспедиции</h2></div><button id="closeRoute" class="plain" aria-label="Свернуть маршрут">×</button></div><div id="routeStats" class="route-stats"></div><canvas id="profile" width="500" height="150" role="img" aria-label="Профиль глубин по маршруту"></canvas><div class="profile-caption"><span>ПРОФИЛЬ ДНА</span><span id="profileDepths">—</span></div><div id="routeStops" class="route-stops"></div><div class="route-actions"><button id="routeUndo" class="secondary">↶ Точка</button><button id="routeClear" class="text-btn">Очистить</button></div><p class="route-hint">Клики добавляют точки. Это план по прямым отрезкам; проходы под скалами проверяются отдельно.</p></aside>
+<aside id="detail" class="detail glass" hidden></aside>
+<div class="zoom-control glass"><button id="zoomIn" aria-label="Приблизить">+</button><span id="zoomLabel">100%</span><button id="zoomOut" aria-label="Отдалить">−</button><i></i><button id="followBtn" title="К персонажу" aria-label="Перейти к Виртуозу"><span class="green-dot"></span></button><button id="fitBtn" title="Вся карта" aria-label="Показать всю карту">⌖</button><button id="islandBtn" title="Капсула Ханны" aria-label="Перейти к капсуле Ханны"><svg><use href="#i-home"/></svg></button></div>
+<div id="layerPanel" class="layer-panel glass" hidden><div class="panel-title">Слои карты</div><label><input type="checkbox" data-layer="contours" checked>Изобаты и глубины</label><label><input type="checkbox" data-layer="ecology" checked>Флора и фауна</label><label><input type="checkbox" data-layer="wrecks" checked>Обломки</label><label><input type="checkbox" data-layer="resources" checked>Ресурсные участки</label><label><input type="checkbox" data-layer="grid">Координатная сетка</label><label><input type="checkbox" data-layer="labels" checked>Названия мест</label><label><input type="checkbox" data-layer="trail" checked>След перемещения</label><label><input type="checkbox" data-layer="currents">Течения</label><button id="snapshotBtn" class="secondary wide">Сохранить вид карты · PNG</button><button id="cinemaBtn" class="secondary wide">Скрыть интерфейс · H</button></div>
+<div class="depth-legend glass"><div class="legend-top"><span>БАТИМЕТРИЯ</span><span>ГЛУБИНА, М</span></div><div class="depth-gradient"></div><div class="legend-values"><span>0</span><span>20</span><span>50</span><span>100</span><span>170+</span></div><div class="legend-symbols"><span><i class="symbol-wreck"></i>Обломки</span><span><i class="symbol-player"></i>Вы здесь</span><span><i class="symbol-cave"></i>Пещера</span></div></div>
+<div class="bottom-center"><div id="modeHint" class="mode-hint">Потяните карту · Колесо — масштаб · Клик по обломку — сведения</div><nav class="toolbar glass" aria-label="Управление картой"><button class="tool active" id="exploreBtn"><svg><use href="#i-cross"/></svg><span>Обзор</span></button><button class="tool" id="positionBtn"><svg><use href="#i-pin"/></svg><span>Позиция</span></button><span class="tool-divider"></span><button class="tool" id="routeBtn"><svg><use href="#i-route"/></svg><span>Маршрут</span></button><button class="tool" id="pinBtn"><svg><use href="#i-flag"/></svg><span>Метка</span></button><button class="tool" id="layersBtn"><svg><use href="#i-layers"/></svg><span>Слои</span></button></nav></div>
+<div class="minimap glass"><div><span>ОБЗОР УЧАСТКА</span><button id="miniFit" class="plain" aria-label="Вся карта">⌖</button></div><canvas id="minimap" width="352" height="264" aria-label="Мини-карта. Клик для перехода." tabindex="0"></canvas></div><button id="restoreUi" class="restore-ui glass" hidden>Вернуть интерфейс · H</button><div class="map-scale"><div id="scaleBar"></div><span id="scaleText">50 м</span><small>500 × 500 М · ЛОКАЛЬНАЯ СЪЁМКА</small></div>
+<div class="map-readout"><span id="cursorCoords">X — / Y —</span><span>РЕЛЬЕФ ДНА · СЕКТОР TH–01</span></div>
+<div id="toast" role="status" class="toast"></div><div class="loading" id="loading"><div class="loading-orbit"></div><span>СТРОИМ РЕЛЬЕФ ДНА</span></div>
+</main>
+<dialog id="helpDialog"><button class="dialog-close" data-close aria-label="Закрыть">×</button><span class="eyebrow">ПОЛЕВОЙ ТЕРМИНАЛ / КРАТКО</span><h2>Океан уже на карте.<br>Находки — ещё нет.</h2><p>Обломки видны с самого начала. Ящики скрыты, пока вы не обнаружите их сигнал или не обследуете фрагмент рядом.</p><div class="help-steps"><div><b>01</b><span><strong>Укажите позицию</strong>Нажмите «Позиция» и кликните по карте. Зелёную точку можно перетащить. Стрелки перемещают на 2 м, Shift + стрелки — на 10 м.</span></div><div><b>02</b><span><strong>Выберите обломок</strong>Кликните по нему: сканер повернётся к цели. HEAF-K10 проверяет сектор 90° до 100 м и отмечает до двух сигналов за проход.</span></div><div><b>03</b><span><strong>Обследуйте вблизи</strong>Подойдите меткой на 18 м и нажмите «Обследовать». Содержимое контейнера станет доступно после осмотра.</span></div><div><b>04</b><span><strong>Планируйте исследование</strong>В «Объектах» есть поиск по известным целям. «Маршрут» строит профиль дна, «Метка» оставляет личный ориентир. H скрывает интерфейс, Esc завершает инструмент.</span></div></div><p class="small-note">Позиция и находки сохраняются в этом браузере. Кнопка «Поделиться» передаёт снимок прогресса по ссылке; совместной синхронизации в реальном времени нет. Локальная схема и состав новых находок — сценарная заготовка для ведущего.</p><button id="helpGuide" class="secondary wide">Жизнь океана · полевой атлас</button><button class="primary wide" data-close>Начать обследование <span>→</span></button></dialog>
+<dialog id="journalDialog"><button class="dialog-close" data-close aria-label="Закрыть">×</button><span class="eyebrow">НЕЙРИН / ПОЛЕВОЙ ЖУРНАЛ</span><h2>Результаты экспедиции</h2><div id="journalContent"></div><div class="journal-actions"><button id="reportBtn" class="secondary">Отчёт для нейрина</button><button id="exportBtn" class="secondary">Сохранить прогресс</button><button id="importBtn" class="secondary">Загрузить</button><input type="file" id="importFile" accept="application/json,.json" hidden><button id="resetBtn" class="text-btn danger">Сбросить</button></div><p class="small-note">Отметка «Изъято» фиксирует решение игрока. Она не переносит ресурсы в отдельную игровую систему.</p></dialog>
+<dialog id="shareDialog"><button class="dialog-close" data-close aria-label="Закрыть">×</button><span class="eyebrow">НЕЙРИН / СНИМОК ЭКСПЕДИЦИИ</span><h2>Передать карту</h2><p>Ссылка содержит текущую позицию, найденные объекты и отметки изъятия. Получатель продолжит обследование в своём браузере.</p><label class="share-label" for="shareUrl">ССЫЛКА СО СНИМКОМ ПРОГРЕССА</label><input id="shareUrl" class="share-input" readonly><button id="shareCopy" class="primary wide">Скопировать ссылку</button><div class="share-actions"><button id="shareFile" class="secondary">Сохранить файл прогресса</button></div><p id="shareStatus" class="small-note">Доступ к сайту настраивается отдельно. Ссылка не включает совместную синхронизацию.</p></dialog>
+<dialog id="pinDialog"><button class="dialog-close" data-close aria-label="Закрыть">×</button><span class="eyebrow">ЛИЧНЫЙ ОРИЕНТИР</span><h2>Что здесь отметить?</h2><form id="pinForm"><label class="share-label" for="pinLabel">НАЗВАНИЕ МЕТКИ</label><input id="pinLabel" class="share-input" maxlength="48" placeholder="Например: вход под обшивку" required><button class="primary wide" type="submit">Оставить метку</button></form></dialog><dialog id="guideDialog"><button class="dialog-close" data-close aria-label="Закрыть">×</button><span class="eyebrow">ПОЛЕВОЙ АТЛАС / ЭКОСИСТЕМА</span><h2>Жизнь среди обломков</h2><p>Мелководье переходит в рифовые террасы, лес водорослей и холодные уступы разлома. Жизнь использует металл как новый субстрат.</p><div id="ecologyContent" class="ecology-content"></div></dialog>
+<script>
+/* Expedition state, migration and exploration rules. Coordinates: 1 unit = 0.5 m.
+ * Mutations return {ok, reason?, ...}; they never expose cargo contents.
+ * metrics accepts the full route including the current player position.
+ */
+(function(root,factory){
+  'use strict';
+  const api=factory();
+  if(typeof module==='object'&&module.exports)module.exports=api;
+  if(root)root.ExpeditionModel=api;
+})(typeof window!=='undefined'?window:typeof globalThis!=='undefined'?globalThis:this,function(){
+  'use strict';
+  const M_PER_UNIT=.5,MAX_ROUTE=24,MAX_PINS=30,MAX_TRAIL=240,MAX_SCANS=32;
+  const layerDefaults=Object.freeze({contours:true,ecology:true,wrecks:true,resources:true,grid:false,labels:true,trail:true,currents:false});
+  const clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
+  const finitePoint=p=>!!p&&typeof p==='object'&&Number.isFinite(p.x)&&Number.isFinite(p.y);
+  const bearing=n=>((n%360)+360)%360;
+  const distance=(a,b)=>Math.hypot(a.x-b.x,a.y-b.y)*M_PER_UNIT;
+  function bounds(p){return finitePoint(p)?{x:clamp(p.x,0,1000),y:clamp(p.y,0,1000)}:null;}
+  function lists(world){return {objects:world.objects||[],hidden:world.hidden||[],resources:world.resources||[],zones:world.zones||[],landmarks:world.landmarks||[]};}
+  function create(world){
+    const start=bounds(world&&world.start)||{x:510,y:490};
+    return {version:2,player:start,bearing:135,detected:[],identified:[],searched:[],collected:[],layers:{...layerDefaults},route:[],pins:[],trail:[],notes:{},scans:[]};
+  }
+  function validIds(input,set){return Array.isArray(input)?[...new Set(input.filter(id=>typeof id==='string'&&set.has(id)))]:[];}
+  function pointList(input,limit){return Array.isArray(input)?input.filter(finitePoint).slice(0,limit).map(bounds):[];}
+  function validate(raw,world){
+    if(!raw||typeof raw!=='object'||![1,2].includes(raw.version)||!finitePoint(raw.player))throw new Error('Неверный формат прогресса экспедиции');
+    const s=create(world),w=lists(world);
+    const objectIds=new Set(w.objects.filter(o=>o.type!=='capsule').map(o=>o.id));
+    const boxIds=new Set(w.hidden.map(o=>o.id)),resourceIds=new Set(w.resources.map(o=>o.id));
+    s.player=bounds(raw.player);s.bearing=Number.isFinite(raw.bearing)?bearing(raw.bearing):135;
+    s.detected=validIds(raw.detected,boxIds);s.identified=validIds(raw.identified,boxIds);s.searched=validIds(raw.searched,objectIds);s.collected=validIds(raw.collected,new Set([...boxIds,...resourceIds]));
+    for(const id of s.collected)if(boxIds.has(id)&&!s.identified.includes(id))s.identified.push(id);
+    for(const id of s.identified)if(!s.detected.includes(id))s.detected.push(id);
+    if(raw.layers&&typeof raw.layers==='object')for(const k of Object.keys(layerDefaults))if(typeof raw.layers[k]==='boolean')s.layers[k]=raw.layers[k];
+    s.route=pointList(raw.route,MAX_ROUTE);s.trail=pointList(raw.trail,MAX_TRAIL);
+    if(Array.isArray(raw.pins)){
+      const seen=new Set();
+      for(const p of raw.pins){
+        if(s.pins.length>=MAX_PINS)break;
+        const point=bounds(p);if(!point)continue;
+        const id=typeof p.id==='string'&&/^[A-Za-z0-9_-]{1,80}$/.test(p.id)?p.id:'pin-'+(s.pins.length+1);
+        if(seen.has(id))continue;seen.add(id);
+        s.pins.push({id,...point,label:typeof p.label==='string'?p.label.trim().slice(0,60):'Метка',color:typeof p.color==='string'&&/^#[0-9a-fA-F]{6}$/.test(p.color)?p.color:'#f0c674'});
+      }
+    }
+    const noteIds=new Set([...w.objects,...w.resources,...w.zones,...w.landmarks].map(o=>o.id));s.identified.forEach(id=>noteIds.add(id));
+    if(raw.notes&&typeof raw.notes==='object'&&!Array.isArray(raw.notes))for(const [id,value]of Object.entries(raw.notes))if(noteIds.has(id)&&typeof value==='string'&&value.trim())Object.defineProperty(s.notes,id,{value:value.slice(0,500),enumerable:true,writable:true,configurable:true});
+    if(Array.isArray(raw.scans))s.scans=raw.scans.filter(p=>finitePoint(p)&&Number.isFinite(p.bearing)).slice(-MAX_SCANS).map(p=>({...bounds(p),bearing:bearing(p.bearing)}));
+    if(raw.view&&typeof raw.view==='object'&&finitePoint(raw.view.center)&&Number.isFinite(raw.view.scale))s.view={scale:clamp(raw.view.scale,.2,5.2),center:bounds(raw.view.center)};
+    return s;
+  }
+  function canReach(player,obj,radiusM=18){return finitePoint(player)&&finitePoint(obj)&&Number.isFinite(radiusM)&&radiusM>=0&&distance(player,obj)<=radiusM+1e-9;}
+  function inSector(player,course,target){
+    if(!finitePoint(player)||!finitePoint(target)||!Number.isFinite(course)||distance(player,target)>100+1e-9)return false;
+    if(distance(player,target)<1e-9)return true;
+    const targetBearing=bearing(Math.atan2(target.x-player.x,-(target.y-player.y))*180/Math.PI);
+    const delta=((targetBearing-bearing(course)+540)%360)-180;
+    return Math.abs(delta)<=45+1e-9;
+  }
+  function scan(state,world){
+    if(!state||!finitePoint(state.player)||!Number.isFinite(state.bearing))return {ok:false,reason:'invalid-state',found:[]};
+    const found=(world.hidden||[]).filter(b=>!state.detected.includes(b.id)&&inSector(state.player,state.bearing,b)).sort((a,b)=>distance(a,state.player)-distance(b,state.player)||a.id.localeCompare(b.id)).slice(0,2).map(o=>o.id);
+    state.detected.push(...found);
+    state.scans.push({...bounds(state.player),bearing:bearing(state.bearing)});state.scans=state.scans.slice(-MAX_SCANS);
+    return {ok:true,found};
+  }
+  function inspect(state,world,objectId){
+    const obj=(world.objects||[]).find(o=>o.id===objectId);
+    if(!obj)return {ok:false,reason:'unknown-object',found:[],identified:[]};
+    if(obj.type==='capsule')return {ok:false,reason:'closed-capsule',found:[],identified:[]};
+    if(!canReach(state.player,obj))return {ok:false,reason:'out-of-range',found:[],identified:[]};
+    if(state.searched.includes(objectId))return {ok:false,reason:'already-searched',found:[],identified:[]};
+    state.searched.push(objectId);
+    const linked=(world.hidden||[]).filter(b=>b.parentId===objectId),found=[],identified=[];
+    for(const box of linked){
+      if(!state.detected.includes(box.id)){state.detected.push(box.id);found.push(box.id);}
+      if(canReach(state.player,box)&&!state.identified.includes(box.id)){state.identified.push(box.id);identified.push(box.id);}
+    }
+    return {ok:true,found,identified};
+  }
+  function identify(state,world,boxId){
+    const box=(world.hidden||[]).find(o=>o.id===boxId);
+    if(!box)return {ok:false,id:boxId,reason:'unknown-object'};
+    if(!state.detected.includes(boxId))return {ok:false,id:boxId,reason:'not-detected'};
+    if(!canReach(state.player,box))return {ok:false,id:boxId,reason:'out-of-range'};
+    if(state.identified.includes(boxId))return {ok:false,id:boxId,reason:'already-identified'};
+    state.identified.push(boxId);return {ok:true,id:boxId};
+  }
+  function collect(state,world,id){
+    const box=(world.hidden||[]).find(o=>o.id===id),resource=(world.resources||[]).find(o=>o.id===id),obj=box||resource;
+    if(!obj)return {ok:false,id,reason:'unknown-object'};
+    if(box&&!state.identified.includes(id))return {ok:false,id,reason:'not-identified'};
+    if(!canReach(state.player,obj))return {ok:false,id,reason:'out-of-range'};
+    if(state.collected.includes(id))return {ok:false,id,reason:'already-collected'};
+    state.collected.push(id);return {ok:true,id};
+  }
+  function metrics(points,depthFn){
+    const route=Array.isArray(points)?points.filter(finitePoint):[];
+    const samples=[];let distanceM=0,ascent=0,descent=0,minDepth=Infinity,maxDepth=-Infinity,lastDepth=null;
+    const sample=(p,d)=>{
+      const rawDepth=typeof depthFn==='function'?depthFn(p.x,p.y):0;
+      const depth=Number.isFinite(rawDepth)?Math.max(0,rawDepth):0;
+      minDepth=Math.min(minDepth,depth);maxDepth=Math.max(maxDepth,depth);
+      if(lastDepth!==null){const change=depth-lastDepth;if(change>0)descent+=change;else ascent-=change;}
+      lastDepth=depth;samples.push({x:p.x,y:p.y,distanceM:d,depth});
+    };
+    if(route.length)sample(route[0],0);
+    for(let i=1;i<route.length;i++){
+      const a=route[i-1],b=route[i],length=distance(a,b),count=Math.max(1,Math.ceil(length));
+      if(length===0)continue;
+      for(let j=1;j<=count;j++){const t=j/count;sample({x:a.x+(b.x-a.x)*t,y:a.y+(b.y-a.y)*t},distanceM+length*t);}
+      distanceM+=length;
+    }
+    return {distanceM,minDepth:minDepth===Infinity?0:minDepth,maxDepth:maxDepth===-Infinity?0:maxDepth,ascent,descent,samples};
+  }
+  function encode(state){
+    const text=JSON.stringify(state);
+    if(typeof Buffer!=='undefined')return Buffer.from(text,'utf8').toString('base64');
+    return btoa(unescape(encodeURIComponent(text)));
+  }
+  function decode(encoded,world){
+    if(typeof encoded!=='string'||encoded.length>300000)throw new Error('Некорректный снимок экспедиции');
+    const text=typeof Buffer!=='undefined'?Buffer.from(encoded,'base64').toString('utf8'):decodeURIComponent(escape(atob(encoded)));
+    return validate(JSON.parse(text),world);
+  }
+  return Object.freeze({create,validate,scan,inspect,identify,collect,metrics,inSector,canReach,bounds,encode,decode});
+});
+
+</script><script>
+/* THANATOS / hydrographic terrain, living reef and coastal geomorphology.
+   All fields are deterministic. One world unit is 0.5 metres. No network assets. */
+(() => {
+  'use strict';
+  const SIZE=1000,RES=1500,GRID=321,TAU=Math.PI*2;
+  const clamp=(v,a,b)=>Math.max(a,Math.min(b,v)),mix=(a,b,t)=>a+(b-a)*t;
+  const smooth=t=>t*t*(3-2*t),sig=x=>1/(1+Math.exp(-x));
+  const fract=x=>x-Math.floor(x),hash=(x,y)=>fract(Math.sin(x*127.1+y*311.7+27.43)*43758.5453);
+  function noise(x,y){const ix=Math.floor(x),iy=Math.floor(y),tx=smooth(x-ix),ty=smooth(y-iy);return mix(mix(hash(ix,iy),hash(ix+1,iy),tx),mix(hash(ix,iy+1),hash(ix+1,iy+1),tx),ty);}
+  const gauss=(x,y,cx,cy,rx,ry)=>Math.exp(-(((x-cx)/rx)**2+((y-cy)/ry)**2));
+  function channels(x,y){
+    const branchA=556+Math.sin((x-430)/118)*38+Math.sin(x/51)*8;
+    const branchB=702-Math.sin((x-450)/135)*57;
+    const branchC=430+Math.sin((x-540)/96)*29;
+    return 10*Math.exp(-(((y-branchA)/15)**2))*sig((x-445)/30)*sig((812-x)/26)
+      +13*Math.exp(-(((y-branchB)/20)**2))*sig((x-378)/24)*sig((795-x)/24)
+      +8*Math.exp(-(((y-branchC)/13)**2))*sig((x-577)/20)*sig((816-x)/25);
+  }
+  function depth(x,y){
+    const dx=x-390,dy=y-330,r=Math.hypot(dx,dy);
+    const edge=651+47*Math.sin((y-140)/153)+16*Math.sin(y/46);
+    const canyon=761+44*Math.sin((y-200)/175);
+    let d=2.2+.000151*r*r;
+    // Successive shelf lips form readable terraces rather than a single blurred slope.
+    d+=15*sig((x-edge+35)/12)+28*sig((x-edge-8)/15)+25*sig((x-edge-62)/19);
+    d+=27*sig((y-729)/34)+31*Math.exp(-(((x-canyon)/43)**2))*sig((y-326)/41);
+    d+=channels(x,y);
+    d-=8*gauss(x,y,250,470,115,88)+7*gauss(x,y,530,400,98,83);
+    d-=7*gauss(x,y,360,665,76,122)+8*gauss(x,y,584,637,37,66);
+    d+=7*gauss(x,y,456,615,92,50)+9*gauss(x,y,278,752,58,45);
+    // Ridges run along the escarpment. The short wavelength is restricted to rock.
+    const rocky=sig((x-edge+65)/18)*sig((edge+100-x)/25);
+    d-=4.5*Math.cos((x-edge)*.17+Math.sin(y*.028))*rocky;
+    const blend=clamp((r-12)/105,0,1);
+    d+=((noise(x/75,y/75)-.5)*5.5+(noise(x/27,y/27)-.5)*1.9)*blend;
+    // Island canon: a maximum 10×10-unit footprint, exactly 5×5 metres.
+    const rr=Math.max(Math.abs(dx)/5,Math.abs(dy)/5);
+    if(rr<1)return -.18-.45*(1-rr);
+    if(rr<2.5)d=mix(.12,d,smooth(clamp((rr-1)/1.5,0,1)));
+    return clamp(d,.35,176);
+  }
+  function sandiness(x,y,d){
+    const lane=channels(x,y);
+    const open=gauss(x,y,312,345,126,92)+gauss(x,y,332,516,78,48)+gauss(x,y,491,482,57,39)+gauss(x,y,493,739,85,28);
+    return clamp((noise(x/102+17,y/108+4)-.41)*2.5+open*.65+lane*.065,0,1)*(1-sig((d-67)/9));
+  }
+  const regions=[
+    [390,330,70,'Отмель Ханны'],[250,470,105,'Коралловые поля'],[530,400,83,'Тихий риф'],
+    [590,540,110,'Поле разрушения'],[390,660,102,'Лес приливов'],[610,650,58,'Светящийся свод'],
+    [790,460,67,'Расколотая арка'],[280,740,68,'Грот скатов'],[800,800,160,'Синий провал']
+  ];
+  function region(x,y){if(x<0||x>SIZE||y<0||y>SIZE)return 'За границей съёмки';let best='За границей съёмки',score=Infinity;regions.forEach(r=>{const s=Math.hypot(x-r[0],y-r[1])/r[2];if(s<score){score=s;best=r[3];}});return best;}
+  function current(x,y){const edge=650+48*Math.sin((y-140)/153),trench=sig((x-edge)/38),cave=Math.max(gauss(x,y,790,460,44,38),gauss(x,y,610,650,47,32));const a=.72+.22*Math.sin(y/135)-.25*gauss(x,y,390,330,100,100),speed=.12+.53*trench+.2*cave;return {x:Math.cos(a),y:Math.sin(a),speed:Math.round(speed*100)/100,label:speed>.55?'усиленное':speed>.3?'умеренное':'слабое'};}
+  function feature(x,y){const d=depth(x,y),dx=depth(x+2,y)-depth(x-2,y),dy=depth(x,y+2)-depth(x,y-2);return {slope:Math.round(Math.atan(Math.hypot(dx,dy)/2)*180/Math.PI),substrate:d<0?'песчано-каменный островок':sandiness(x,y,d)>.5?'песок и осадок':d>75?'каменистый склон':'рифовый известняк',current:current(x,y)};}
+  const features=[
+    {id:'reef-terraces',name:'Рифовые террасы',x:676,y:575,type:'ridge'},
+    {id:'sand-channel',name:'Песчаная ложбина',x:565,y:574,type:'gully'},
+    {id:'arch',name:'Расколотая арка',x:790,y:460,type:'cave'},
+    {id:'glow-cave',name:'Светящийся свод',x:610,y:650,type:'cave'},
+    {id:'ray-grotto',name:'Грот скатов',x:280,y:740,type:'cave'},
+    {id:'sand-glade',name:'Песчаная поляна',x:333,y:516,type:'sand'}
+  ];
+  let seed=239188;
+  function rand(){seed=(Math.imul(seed,1664525)+1013904223)>>>0;return seed/4294967296;}
+  function canvas(res){const c=document.createElement('canvas');c.width=c.height=res;return c;}
+  const terrain=canvas(RES),tc=terrain.getContext('2d',{alpha:false});
+  const ecology=canvas(RES),ec=ecology.getContext('2d');
+  const contours=canvas(RES),cc=contours.getContext('2d');
+  const caustics=canvas(1100),lc=caustics.getContext('2d');
+  const field=new Float32Array(GRID*GRID),sand=new Float32Array(GRID*GRID),step=SIZE/(GRID-1);
+  for(let j=0;j<GRID;j++)for(let i=0;i<GRID;i++){const x=i*step,y=j*step,k=j*GRID+i;field[k]=depth(x,y);sand[k]=sandiness(x,y,field[k]);}
+  function sample(arr,x,y){const gx=clamp(x/step,0,GRID-1.001),gy=clamp(y/step,0,GRID-1.001),i=gx|0,j=gy|0,tx=gx-i,ty=gy-j;return mix(mix(arr[j*GRID+i],arr[j*GRID+i+1],tx),mix(arr[(j+1)*GRID+i],arr[(j+1)*GRID+i+1],tx),ty);}
+  const stops=[[0,[120,202,184]],[4,[90,178,162]],[12,[42,142,143]],[28,[24,107,126]],[52,[17,76,104]],[83,[12,49,78]],[125,[7,30,55]],[176,[4,16,34]]];
+  const palette=[];
+  for(let n=0;n<=352;n++){const d=n*.5;let c=stops.at(-1)[1];for(let i=1;i<stops.length;i++)if(d<=stops[i][0]){const a=stops[i-1],b=stops[i],t=(d-a[0])/(b[0]-a[0]);c=a[1].map((v,k)=>mix(v,b[1][k],t));break;}palette.push(c);}
+  function shadedColor(x,y,d,ddx,ddy,sm,grain){
+    const shade=clamp(1.02-ddx*.115-ddy*.15,.43,1.38),col=palette[clamp(Math.round(d*2),0,352)];
+    const tint=[157-d*1.65,191-d*1.42,158-d*.65];
+    return col.map((v,k)=>clamp(mix(v,tint[k],sm*.56)*shade+grain,0,255));
+  }
+  // Lower resolution surroundings meet the surveyed seabed without a rectangular edge.
+  const OUT_MIN=-1000,OUT_SIZE=3000,OUT_RES=760,OUT_GRID=251;
+  const outer=canvas(OUT_RES),oc=outer.getContext('2d',{alpha:false}),outerField=new Float32Array(OUT_GRID*OUT_GRID),outerSand=new Float32Array(OUT_GRID*OUT_GRID),outerStep=OUT_SIZE/(OUT_GRID-1);
+  for(let j=0;j<OUT_GRID;j++)for(let i=0;i<OUT_GRID;i++){const x=OUT_MIN+i*outerStep,y=OUT_MIN+j*outerStep,k=j*OUT_GRID+i;outerField[k]=depth(x,y);outerSand[k]=sandiness(x,y,outerField[k]);}
+  function outerSample(arr,x,y){const gx=clamp((x-OUT_MIN)/outerStep,0,OUT_GRID-1.001),gy=clamp((y-OUT_MIN)/outerStep,0,OUT_GRID-1.001),i=gx|0,j=gy|0;return mix(mix(arr[j*OUT_GRID+i],arr[j*OUT_GRID+i+1],gx-i),mix(arr[(j+1)*OUT_GRID+i],arr[(j+1)*OUT_GRID+i+1],gx-i),gy-j);}
+  function paintPixels(target,res,origin,size,sampler,sandSampler){const image=target.createImageData(res,res);for(let j=0;j<res;j++)for(let i=0;i<res;i++){const x=origin+i*size/res,y=origin+j*size/res,d=sampler(x,y),gx=sampler(x+2,y)-sampler(x-2,y),gy=sampler(x,y+2)-sampler(x,y-2),grain=(((Math.imul(i+17,374761393)^Math.imul(j+9,668265263))>>>14)%17-8)*.22,c=shadedColor(x,y,d,gx,gy,sandSampler(x,y),grain),k=(j*res+i)*4;image.data[k]=c[0];image.data[k+1]=c[1];image.data[k+2]=c[2];image.data[k+3]=255;}target.putImageData(image,0,0);}
+  paintPixels(oc,OUT_RES,OUT_MIN,OUT_SIZE,(x,y)=>outerSample(outerField,x,y),(x,y)=>outerSample(outerSand,x,y));
+  paintPixels(tc,RES,0,SIZE,(x,y)=>sample(field,x,y),(x,y)=>sample(sand,x,y));
+  tc.save();tc.scale(RES/SIZE,RES/SIZE);
+  // Coherent sand ripples follow the same tidal lanes as the height field.
+  for(let n=0;n<2400;n++){const x=rand()*SIZE,y=rand()*SIZE,d=depth(x,y),s=sample(sand,x,y);if(d>65||d<1||s<.4)continue;const len=4+rand()*15,a=.1+Math.sin(x/190)*.25;tc.save();tc.translate(x,y);tc.rotate(a);tc.beginPath();tc.moveTo(-len,0);tc.bezierCurveTo(-len*.4,-1.5,len*.4,-1.5,len,0);tc.strokeStyle=`rgba(212,221,179,${.045+s*.06})`;tc.lineWidth=.45;tc.stroke();tc.restore();}
+  // Long limestone ribs define the shelf and make drop-offs legible at normal zoom.
+  for(let b=0;b<6;b++){const cx=647+b*15;tc.beginPath();for(let j=0;j<=100;j++){const y=310+j*5.5,x=cx+44*Math.sin((y-140)/153)+14*Math.sin(y/46)+Math.sin(y/18+b)*2;j?tc.lineTo(x,y):tc.moveTo(x,y);}tc.strokeStyle=`rgba(1,29,46,${.1+b*.013})`;tc.lineWidth=5.5-b*.6;tc.stroke();tc.translate(-1,-1);tc.strokeStyle=`rgba(146,186,161,${.1-b*.009})`;tc.lineWidth=1.1;tc.stroke();tc.translate(1,1);}
+  // Bedrock clusters are absent from broad sand glades and channel floors.
+  for(let n=0;n<1180;n++){const x=25+rand()*950,y=25+rand()*950,d=depth(x,y),s=sample(sand,x,y);if(d<3||d>133||s>.74||rand()>.3+noise(x/73,y/73)*.6)continue;const r=1.5+rand()*6.5,a=rand()*TAU;tc.save();tc.translate(x,y);tc.rotate(a);tc.beginPath();for(let p=0;p<8;p++){const a=p/8*TAU,rr=r*(.68+rand()*.4);p?tc.lineTo(Math.cos(a)*rr,Math.sin(a)*rr*.65):tc.moveTo(Math.cos(a)*rr,Math.sin(a)*rr*.65);}tc.closePath();tc.shadowColor='#00152770';tc.shadowOffsetX=1.7;tc.shadowOffsetY=2.8;tc.shadowBlur=2;tc.fillStyle=d<38?'#598f7caa':'#3b6571aa';tc.fill();tc.shadowBlur=0;tc.beginPath();tc.ellipse(-r*.2,-r*.17,r*.58,r*.27,.1,Math.PI,TAU);tc.strokeStyle=d<55?'#c2c8a74a':'#a0bdaf2a';tc.lineWidth=.7;tc.stroke();tc.restore();}
+  // Distinct entrances: western low grotto, southern luminous overhang, eastern split arch.
+  const caves=[[610,650,25,11,-.65],[790,460,24,9,.75],[280,740,24,10,-.2]];
+  caves.forEach(([x,y,rx,ry,a],idx)=>{tc.save();tc.translate(x,y);tc.rotate(a);
+    for(let layer=5;layer>=0;layer--){tc.beginPath();tc.ellipse(0,-layer*1.15,rx+layer*2.0,ry+layer*.85,0,0,TAU);tc.fillStyle=layer===0?'#031726':`rgba(73,116,117,${.12+layer*.025})`;tc.fill();}
+    tc.beginPath();tc.ellipse(0,-6,rx+7,ry+5,0,Math.PI,TAU);tc.strokeStyle='#90ad9866';tc.lineWidth=3.3;tc.stroke();tc.beginPath();tc.ellipse(0,-7,rx+8,ry+6,0,Math.PI,TAU);tc.strokeStyle='#c0c6a635';tc.lineWidth=1;tc.stroke();
+    if(idx===1){tc.beginPath();tc.moveTo(-rx-5,-ry-5);tc.lineTo(-3,-4);tc.lineTo(rx+6,-ry-2);tc.strokeStyle='#071f2d';tc.lineWidth=3;tc.stroke();}
+    const glow=tc.createRadialGradient(0,2,0,0,2,rx);glow.addColorStop(0,idx===0?'#41c4bd27':'#126b8920');glow.addColorStop(1,'#00152500');tc.fillStyle=glow;tc.fillRect(-rx,-ry,rx*2,ry*2);tc.restore();});
+  // Wave-washed island and anchoring stones, without enlarging its land footprint.
+  tc.save();tc.translate(390,330);const wash=tc.createRadialGradient(0,0,4,0,0,21);wash.addColorStop(0,'#cde9c2aa');wash.addColorStop(.4,'#a3e1c754');wash.addColorStop(1,'#a5e8d200');tc.fillStyle=wash;tc.fillRect(-22,-22,44,44);
+  tc.beginPath();tc.moveTo(-5,-2.8);tc.lineTo(-3.8,-4.5);tc.lineTo(.8,-5);tc.lineTo(4.7,-3.2);tc.lineTo(5,1);tc.lineTo(2.4,4.7);tc.lineTo(-1,5);tc.lineTo(-4.5,2.8);tc.closePath();tc.fillStyle='#e0d6aa';tc.shadowColor='#00252d99';tc.shadowBlur=2;tc.shadowOffsetY=1;tc.fill();tc.shadowBlur=0;tc.strokeStyle='#f5ecc4bb';tc.lineWidth=.7;tc.stroke();tc.restore();tc.restore();
+  ec.scale(RES/SIZE,RES/SIZE);
+  const beds=[[250,470,106,88],[530,400,84,94],[350,255,98,64],[577,581,64,66],[210,620,72,85],[531,738,99,55]];
+  const coralColors=['#b4c0a1','#c4ab83','#83b99c','#d0a0a3','#91c6bc','#9aaac6'];
+  function coral(x,y,r,kind,c){ec.save();ec.translate(x,y);ec.rotate(rand()*TAU);ec.strokeStyle=c;ec.fillStyle=c;ec.shadowColor='#04344966';ec.shadowBlur=1;ec.shadowOffsetY=1;ec.globalAlpha=.58+rand()*.27;
+    if(kind===0){ // antler branches
+      ec.lineWidth=.65;ec.beginPath();ec.moveTo(0,r);ec.lineTo(0,-r*1.65);for(let i=0;i<3;i++){const y=r*.3-i*r*.5;ec.moveTo(0,y);ec.lineTo(-r*(.8-i*.12),y-r*.75);ec.moveTo(0,y);ec.lineTo(r*(.8-i*.12),y-r*.75);}ec.stroke();
+    }else if(kind===1){ // plate coral with limestone rims
+      for(let p=2;p>=0;p--){ec.beginPath();ec.ellipse(p*r*.2,-p*r*.32,r*(1-p*.1),r*.48,0,0,TAU);ec.fill();ec.strokeStyle='#deebc270';ec.lineWidth=.35;ec.stroke();}
+    }else if(kind===2){ // honeycombed boulder
+      for(let p=0;p<6;p++){const a=p/6*TAU;ec.beginPath();ec.arc(Math.cos(a)*r*.55,Math.sin(a)*r*.55,r*.57,0,TAU);ec.fill();}ec.shadowBlur=0;ec.fillStyle='#283f414a';for(let p=0;p<7;p++){ec.beginPath();ec.arc((rand()-.5)*r*1.2,(rand()-.5)*r*1.2,.25+rand()*.3,0,TAU);ec.fill();}
+    }else if(kind===3){ // tube sponges
+      for(let p=0;p<4;p++){const x=(p-1.5)*r*.5,y=-p*r*.17,rr=r*(.22+rand()*.14);ec.beginPath();ec.ellipse(x,y,rr,rr*1.35,0,0,TAU);ec.fill();ec.shadowBlur=0;ec.fillStyle='#294f5388';ec.beginPath();ec.ellipse(x,y-rr*.3,rr*.53,rr*.58,0,0,TAU);ec.fill();ec.fillStyle=c;}
+    }else{ // sea fans
+      ec.lineWidth=.4;ec.beginPath();for(let p=0;p<9;p++){const a=-Math.PI*.85+p*Math.PI*.7/8;ec.moveTo(0,r*.7);ec.quadraticCurveTo(Math.cos(a)*r*.5,-r*.4,Math.cos(a)*r*1.5,Math.sin(a)*r*1.5);}ec.stroke();ec.beginPath();ec.ellipse(0,-r*.6,r*1.1,r*.7,0,Math.PI,TAU);ec.stroke();
+    }ec.restore();}
+  for(let n=0;n<2100;n++){const bed=beds[n%beds.length],a=rand()*TAU,rr=Math.sqrt(rand()),x=bed[0]+Math.cos(a)*bed[2]*rr,y=bed[1]+Math.sin(a)*bed[3]*rr,d=depth(x,y);if(d<2||d>100||noise(x/26+4,y/26)<.35||sample(sand,x,y)>.76)continue;coral(x,y,.9+rand()*3.6,n%5,coralColors[(n+Math.floor(rand()*3))%coralColors.length]);}
+  // Eelgrass borders sand pools; long kelp occupies the sheltered western valley.
+  for(let n=0;n<760;n++){const x=390+(rand()-.5)*164,y=655+(rand()-.5)*195;if(gauss(x,y,390,655,78,96)<.26||noise(x/25,y/25)<.32)continue;const len=5+rand()*13;ec.save();ec.translate(x,y);ec.strokeStyle=rand()>.6?'#94ae7688':'#4d8e7788';ec.lineWidth=.8+rand()*.9;ec.beginPath();ec.moveTo(0,0);ec.bezierCurveTo(-4,-len*.3,4,-len*.7,1,-len);ec.stroke();ec.lineWidth=.5;for(let i=1;i<4;i++){const yy=-len*i/4;ec.beginPath();ec.moveTo(0,yy);ec.quadraticCurveTo(-6,yy+1,-5,yy-3);ec.moveTo(0,yy);ec.quadraticCurveTo(5,yy-2,4,yy-6);ec.stroke();}ec.restore();}
+  // Anemones occupy small exposed shelves; deep polyps gather near cave walls.
+  const polyps=[];
+  for(let n=0;n<330;n++){const x=590+rand()*267,y=350+rand()*535,d=depth(x,y);if(d<49||d>149)continue;const r=.35+rand()*.7;ec.fillStyle='#6ad0cf88';ec.beginPath();ec.arc(x,y,r,0,TAU);ec.fill();if(n%7===0)polyps.push({x,y,r,phase:rand()*TAU});}
+  for(let n=0;n<85;n++){const x=217+rand()*365,y=384+rand()*245;if(depth(x,y)>45||sample(sand,x,y)>.6)continue;ec.save();ec.translate(x,y);ec.strokeStyle='#d5b2a48a';ec.lineWidth=.4;for(let p=0;p<9;p++){const a=p/9*TAU;ec.beginPath();ec.moveTo(0,0);ec.quadraticCurveTo(Math.cos(a)*2,Math.sin(a)*2,Math.cos(a)*3.5,Math.sin(a)*3.5);ec.stroke();}ec.fillStyle='#a7cdb99c';ec.beginPath();ec.arc(0,0,.75,0,TAU);ec.fill();ec.restore();}
+  // Shallow-light lattice is cached; animation only drifts and fades the texture.
+  lc.scale(1.1,1.1);lc.strokeStyle='#d9ffed';lc.lineWidth=.6;
+  for(let row=0;row<38;row++)for(let col=0;col<48;col++){const x=col*20+Math.sin(row*1.7)*7,y=row*21;if(depth(x,y)>35||depth(x,y)<.5)continue;const r=9+rand()*5;lc.globalAlpha=.08+rand()*.12;lc.beginPath();for(let p=0;p<6;p++){const a=p/6*TAU,rr=r*(.8+rand()*.25);p?lc.lineTo(x+Math.cos(a)*rr,y+Math.sin(a)*rr*.7):lc.moveTo(x+Math.cos(a)*rr,y+Math.sin(a)*rr*.7);}lc.closePath();lc.stroke();}
+  // Isobaths every 10 m, with stronger 50 m index contours.
+  cc.scale(RES/SIZE,RES/SIZE);const cStep=4,cols=251,cd=new Float32Array(cols*cols);for(let y=0;y<cols;y++)for(let x=0;x<cols;x++)cd[y*cols+x]=depth(x*cStep,y*cStep);
+  for(let level=10;level<=170;level+=10){cc.beginPath();for(let j=0;j<cols-1;j++)for(let i=0;i<cols-1;i++){const vals=[cd[j*cols+i],cd[j*cols+i+1],cd[(j+1)*cols+i+1],cd[(j+1)*cols+i]],points=[[i*cStep,j*cStep],[(i+1)*cStep,j*cStep],[(i+1)*cStep,(j+1)*cStep],[i*cStep,(j+1)*cStep]],hits=[];for(let k=0;k<4;k++){const n=(k+1)%4;if((vals[k]<level)!==(vals[n]<level)){const t=(level-vals[k])/(vals[n]-vals[k]);hits.push([mix(points[k][0],points[n][0],t),mix(points[k][1],points[n][1],t)]);}}for(let k=0;k+1<hits.length;k+=2){cc.moveTo(hits[k][0],hits[k][1]);cc.lineTo(hits[k+1][0],hits[k+1][1]);}}cc.strokeStyle=level%50===0?'#b2d4c64f':'#aad4cc25';cc.lineWidth=level%50===0?.75:.42;cc.stroke();}
+  const fish=[];
+  for(let s=0;s<14;s++){const bed=beds[s%beds.length],school=[];for(let n=0;n<8+Math.floor(rand()*14);n++)school.push({x:(rand()-.5)*37,y:(rand()-.5)*22,size:.7+rand()*.95,phase:rand()*TAU});fish.push({cx:bed[0]+(rand()-.5)*100,cy:bed[1]+(rand()-.5)*75,angle:rand()*TAU,speed:1+rand(),phase:rand()*TAU,school,color:s%3===0?'#e0d7a687':'#c4e9de80'});}
+  const particles=Array.from({length:58},()=>({x:rand()*SIZE,y:rand()*SIZE,r:.25+rand()*.55,s:rand(),phase:rand()*TAU}));
+  function draw(ctx,view,opts={}){const {width,height,scale,offsetX,offsetY}=view;ctx.fillStyle='#05192a';ctx.fillRect(0,0,width,height);ctx.save();ctx.translate(offsetX,offsetY);ctx.scale(scale,scale);ctx.drawImage(outer,OUT_MIN,OUT_MIN,OUT_SIZE,OUT_SIZE);ctx.drawImage(terrain,0,0,SIZE,SIZE);if(opts.ecology!==false)ctx.drawImage(ecology,0,0,SIZE,SIZE);if(opts.contours!==false)ctx.drawImage(contours,0,0,SIZE,SIZE);if(opts.grid){ctx.strokeStyle='#b7e2da16';ctx.lineWidth=.6/scale;ctx.beginPath();for(let i=0;i<=SIZE;i+=100){ctx.moveTo(i,0);ctx.lineTo(i,SIZE);ctx.moveTo(0,i);ctx.lineTo(SIZE,i);}ctx.stroke();}if(opts.currents){ctx.strokeStyle='#9cdde94a';ctx.lineWidth=.8/scale;for(let y=145;y<950;y+=130)for(let x=140;x<950;x+=150){const c=current(x,y),len=8+c.speed*13;ctx.beginPath();ctx.moveTo(x,y);ctx.lineTo(x+c.x*len,y+c.y*len);ctx.lineTo(x+c.x*(len-4)-c.y*3,y+c.y*(len-4)+c.x*3);ctx.moveTo(x+c.x*len,y+c.y*len);ctx.lineTo(x+c.x*(len-4)+c.y*3,y+c.y*(len-4)-c.x*3);ctx.stroke();}}ctx.restore();}
+  function drawLife(ctx,view,time,opts={}){
+    const t=opts.reduceMotion?0:time*.001,{scale,offsetX,offsetY}=view;
+    ctx.save();ctx.translate(offsetX,offsetY);ctx.scale(scale,scale);
+    if(!opts.reduceMotion&&opts.quality!=='low'){ctx.save();ctx.globalCompositeOperation='screen';ctx.globalAlpha=.45+Math.sin(t*.15)*.15;ctx.drawImage(caustics,Math.sin(t*.09)*3,Math.cos(t*.11)*2,SIZE,SIZE);ctx.restore();}
+    if(opts.ecology!==false){fish.forEach(f=>{const x=f.cx+Math.sin(t*.071+f.phase)*30,y=f.cy+Math.cos(t*.056+f.phase)*23,a=f.angle+Math.sin(t*.11+f.phase)*.6;ctx.save();ctx.translate(x,y);ctx.rotate(a);ctx.fillStyle=f.color;f.school.forEach(p=>{const py=p.y+Math.sin(t*f.speed+p.phase)*1.05;ctx.beginPath();ctx.ellipse(p.x,py,p.size*1.8,p.size*.45,0,0,TAU);ctx.fill();ctx.beginPath();ctx.moveTo(p.x-p.size,py);ctx.lineTo(p.x-p.size*2.8,py-p.size*.75);ctx.lineTo(p.x-p.size*2.8,py+p.size*.75);ctx.closePath();ctx.fill();});ctx.restore();});
+      [[269,728,0],[587,299,2.4],[679,586,4.9]].forEach(([cx,cy,p])=>{const x=cx+Math.cos(t*.034+p)*35,y=cy+Math.sin(t*.034+p)*25;ctx.save();ctx.translate(x,y);ctx.rotate(t*.034+p+.8);const flap=2.8+Math.sin(t*.85+p)*.75;ctx.fillStyle='#b3d4c579';ctx.shadowColor='#06273544';ctx.shadowBlur=2;ctx.shadowOffsetY=3;ctx.beginPath();ctx.moveTo(5,0);ctx.quadraticCurveTo(0,-flap*2.2,-3,-flap);ctx.quadraticCurveTo(-1,0,-4,flap);ctx.quadraticCurveTo(1,flap*2,5,0);ctx.fill();ctx.shadowBlur=0;ctx.strokeStyle='#9cc8bc70';ctx.lineWidth=.6;ctx.beginPath();ctx.moveTo(-1,0);ctx.quadraticCurveTo(-8,1,-13,3);ctx.stroke();ctx.restore();});
+      // Two slow reef grazers with flippers, contrasted against open sand.
+      [[321,524,1.5],[514,328,4]].forEach(([cx,cy,p])=>{const a=t*.018+p,x=cx+Math.cos(a)*24,y=cy+Math.sin(a)*17;ctx.save();ctx.translate(x,y);ctx.rotate(a+.8);ctx.fillStyle='#789c847d';const flap=Math.sin(t*.65+p)*.8;for(const side of [-1,1]){ctx.beginPath();ctx.ellipse(1,side*(3+flap),3.6,1,side*.5,0,TAU);ctx.fill();ctx.beginPath();ctx.ellipse(-3,side*2.6,2.3,.7,-side*.5,0,TAU);ctx.fill();}ctx.beginPath();ctx.ellipse(0,0,4.6,3,0,0,TAU);ctx.fill();ctx.strokeStyle='#ced0a34a';ctx.lineWidth=.4;ctx.stroke();ctx.fillStyle='#a5b59199';ctx.beginPath();ctx.ellipse(5.2,0,1.5,1,0,0,TAU);ctx.fill();ctx.restore();});
+      polyps.forEach(p=>{const a=.12+.13*(.5+.5*Math.sin(t*.9+p.phase));ctx.fillStyle=`rgba(99,224,211,${a})`;ctx.beginPath();ctx.arc(p.x,p.y,p.r*2.1,0,TAU);ctx.fill();});
+    }
+    if(!opts.reduceMotion)particles.forEach(p=>{const x=(p.x+t*(.3+p.s*.3))%SIZE,y=p.y+Math.sin(t*.17+p.phase)*3;ctx.fillStyle=`rgba(207,235,226,${.045+.09*(.5+.5*Math.sin(t*.6+p.phase))})`;ctx.beginPath();ctx.arc(x,y,p.r,0,TAU);ctx.fill();});ctx.restore();
+  }
+  window.Terrain={worldSize:SIZE,depth,region,current,feature,features,draw,drawLife};
+})();
+
+</script><script>
+/* Local exploration layout. All world coordinates are stable; 1 unit = 0.5 m. */
+(() => {
+  'use strict';
+  const zones = [
+    { id:'shallows', name:'Отмель Ханны', x:350, y:292, biome:'Песчаная отмель', danger:'Низкий', description:'Светлый песок, редкие камни и короткие ленты водорослей. Из широкой отмели поднимается крошечный островок с закреплённой капсулой Ханны.' },
+    { id:'coral', name:'Коралловые поля', x:250, y:470, biome:'Коралловый сад', danger:'Низкий', description:'Между округлыми коралловыми колониями проходят песчаные дорожки. В расселинах прячется мелкая живность; над рифом держатся стайки рыб.' },
+    { id:'replication', name:'Тихий риф', x:530, y:400, biome:'Рифовая терраса', danger:'Умеренный', description:'Коралловые чаши и каменные уступы окружают отсек репликации. Слабый оранжевый свет виден в повреждённом коридоре с гидрозатвором.' },
+    { id:'impact', name:'Поле разрушения', x:590, y:540, biome:'Обломки на склоне', danger:'Умеренный', description:'Самое плотное скопление фрагментов «Танатоса». Крупная разорванная секция корпуса окружена рёбрами набора, панелями и оборудованием. Приоритетная зона осмотра.' },
+    { id:'kelp', name:'Лес приливов', x:390, y:660, biome:'Долина водорослей', danger:'Умеренный', description:'Длинные стебли поднимаются над каменным дном. В просветах видны песчаные поляны и занесённые осадком детали. Растительность сокращает прямую видимость.' },
+    { id:'cave-west', name:'Грот скатов', x:280, y:740, biome:'Рифовый грот', danger:'Умеренный', description:'Низкий вход под нависающей плитой. У наружной стенки кружат скаты; внутри лежит песок, обломанный коралл и несколько металлических фрагментов. Вход отмечен, внутренний маршрут не разведан.' },
+    { id:'cave-south', name:'Светящийся свод', x:610, y:650, biome:'Подводная пещера', danger:'Повышенный', description:'Тёмная арка под каменным уступом. На стенах мерцают колонии мелких организмов. Дно уходит под свод; внутренние полости требуют отдельного обследования.' },
+    { id:'cave-east', name:'Расколотая арка', x:790, y:460, biome:'Скальный разлом', danger:'Повышенный', description:'Узкий разрыв в стенке рифа. В проходе слабое течение; под навесом застряли элементы обшивки. Глубина увеличивается сразу за краем террасы.' },
+    { id:'trench', name:'Синий провал', x:800, y:800, biome:'Глубоководный разлом', danger:'Высокий', description:'Ступени склона переходят в глубокий разлом. Редкие силуэты обломков исчезают в синеве; по кромкам растут светящиеся колонии. Дальние фрагменты доступны только после спуска.' }
+  ];
+
+  const objects = [
+    { id:'CAP-01', name:'Капсула Ханны', x:390,y:330,angle:0,size:7,type:'capsule',priority:0,searchRadius:14, description:'Закрытая сферическая стальная капсула ровно стоит на песчано-каменном островке 5×5 м и закреплена крепежами. Двигательные системы оторваны. Состояние содержимого определяется сюжетом.' },
+    { id:'HUL-01', name:'Надводный разрыв', x:410,y:350,angle:-0.65,size:30,type:'hull',priority:2,searchRadius:26, protruding:true, description:'Крупный рваный фрагмент корпуса выступает из воды рядом с островком. Нижняя кромка опирается на склон отмели; вокруг лежат мелкие панели и погнутые крепления.' },
+    { id:'ENG-01', name:'Оторванный двигатель · I', x:433,y:370,angle:0.62,size:19,type:'engine',priority:2,searchRadius:22, description:'Отделённый двигательный узел капсулы лежит в песчаном углублении. Сопло частично занесено осадком, внешние кожухи сорваны. Система не работает.' },
+    { id:'ENG-02', name:'Оторванный двигатель · II', x:465,y:383,angle:-0.4,size:16,type:'engine',priority:2,searchRadius:21, description:'Второй сорванный двигательный узел. Снаружи видны разорванные кабельные жгуты и деформированные опоры. Между деталями поселилась мелкая живность.' },
+    { id:'REP-01', name:'Отсек репликации', x:450,y:420,angle:0.2,size:25,type:'replication',priority:1,searchRadius:25, description:'Отделённая комната репликации сохраняет питание от альтернативных энергоячеек и связь. Внутри есть кислород и слабый оранжевый аварийный свет. Уцелевшая часть коридора образует гидрозатвор.' },
+    { id:'COR-01', name:'Коридор с гидрозатвором', x:440,y:399,angle:1.2,size:20,type:'beam',priority:2,searchRadius:18, description:'Перекошенная секция коридора у отсека репликации. Изгиб конструкции удерживает гидрозатвор; наружные повреждения открыты воде.' },
+    { id:'HUL-02', name:'Главная секция корпуса', x:590,y:540,angle:0.62,size:58,type:'hull',priority:1,searchRadius:38, description:'Крупнейший обломок в первичном секторе. Рёбра корпуса раскрыты наружу, центральная часть смята. Вокруг рассеяны фрагменты с геометрией оборудования; под обшивкой возможны замкнутые объёмы.' },
+    { id:'HUL-03', name:'Сорванная грузовая секция', x:655,y:582,angle:0.48,size:35,type:'hull',priority:1,searchRadius:30, description:'Секция с остатками внутренних направляющих и грузовых креплений. Один край ушёл в мягкий осадок, второй опирается на каменный уступ. Внутренние ниши не обследованы.' },
+    { id:'HUL-04', name:'Изолированный гермообъём', x:690,y:510,angle:-0.2,size:27,type:'hull',priority:1,searchRadius:26, description:'Отдельный замкнутый фрагмент корпуса. Внешняя оболочка выглядит цельнее соседних секций; назначение внутреннего оборудования без осмотра не установлено.' },
+    { id:'EQP-01', name:'Блок внутренних систем', x:553,y:507,angle:0.75,size:15,type:'equipment',priority:1,searchRadius:21, description:'Прямоугольный блок с сохранившейся рамой. Геометрия похожа на внутреннее оборудование корабля. Разъёмы повреждены, внешнего питания нет.' },
+    { id:'EQP-02', name:'Разрушенная приборная рама', x:621,y:499,angle:-0.7,size:17,type:'equipment',priority:1,searchRadius:22, description:'Металлическая рама с несколькими закрытыми секциями. Лицевая часть сорвана, свободные провода покрыты осадком. Требует осмотра перед демонтажом.' },
+    { id:'ENG-03', name:'Фрагмент тягового узла', x:719,y:649,angle:0.9,size:26,type:'engine',priority:2,searchRadius:25, description:'Тяжёлый обломок тягового узла корабля лежит поперёк склона. Вокруг различимы детали креплений и разорванные элементы магистралей.' },
+    { id:'HUL-05', name:'Секция на краю провала', x:778,y:722,angle:1.05,size:33,type:'hull',priority:2,searchRadius:28, description:'Крупная секция остановилась на ступени глубокого разлома. Нижняя часть скрыта тенью склона. На внешней обшивке заметны следы скольжения по породе.' },
+    { id:'HUL-06', name:'Обшивка у светящегося свода', x:602,y:628,angle:-0.4,size:20,type:'hull',priority:2,searchRadius:22, description:'Изогнутый лист корпуса у входа в пещеру. Под приподнятым краем образовалась закрытая от прямого обзора полость.' },
+    { id:'EQP-03', name:'Техническая кассета', x:778,y:451,angle:0.3,size:14,type:'equipment',priority:2,searchRadius:20, description:'Отдельная техническая кассета у расколотой арки. Видна рама с регулярной геометрией; состояние внутренних компонентов неизвестно.' },
+    { id:'HUL-07', name:'Фрагмент у грота', x:288,y:722,angle:-0.25,size:20,type:'hull',priority:3,searchRadius:22, description:'Небольшой обломок лежит на песке перед гротом. Край удерживается камнями, внутренняя поверхность заросла мягкими колониями.' },
+    { id:'EQP-04', name:'Рама в водорослях', x:397,y:643,angle:0.95,size:19,type:'equipment',priority:2,searchRadius:23, description:'Сквозь водоросли видны направляющие и часть технической рамы. Стебли проходят через отверстия корпуса; мелкие предметы вокруг закрыты растительностью.' },
+    { id:'HUL-08', name:'Раскрытая секция борта', x:522,y:594,angle:0.28,size:29,type:'hull',priority:1,searchRadius:27, description:'Секция борта раскрыта вдоль шва. Между внешней и внутренней обшивкой сохранились монтажные ниши и повреждённые элементы оборудования.' }
+  ];
+
+  let seed = 260102;
+  const rand = () => { seed = (Math.imul(seed,1664525) + 1013904223) >>> 0; return seed / 4294967296; };
+  const normal = () => Math.sqrt(-2*Math.log(Math.max(0.0001,rand()))) * Math.cos(2*Math.PI*rand());
+  const clusters = [
+    {x:427,y:373,sx:51,sy:36,n:23},
+    {x:493,y:451,sx:56,sy:46,n:25},
+    {x:583,y:547,sx:78,sy:53,n:49},
+    {x:678,y:621,sx:54,sy:47,n:27},
+    {x:754,y:717,sx:45,sy:49,n:15},
+    {x:381,y:652,sx:52,sy:42,n:6},
+    {x:762,y:467,sx:23,sy:20,n:5}
+  ];
+  const specs = [
+    {type:'plate',word:'Лист обшивки',min:4,max:10, descriptions:['Изогнутая панель лежит на дне; края разорваны, поверхность покрыта тонким слоем осадка.','Снятая ударом обшивка. На металле видны крепёжные отверстия и следы деформации.','Плоский фрагмент внешнего корпуса, частично занесённый песком.']},
+    {type:'beam',word:'Элемент набора',min:6,max:15, descriptions:['Погнутое ребро корабельного набора. Уцелевшие крепления цепляются за камни на дне.','Разорванная силовая балка с остатками поперечных распорок.','Длинный металлический элемент лежит вдоль склона. Возле торца скопилась мелкая крошка обшивки.']},
+    {type:'equipment',word:'Фрагмент оборудования',min:5,max:12, descriptions:['Видна правильная геометрия технической рамы. Состояние компонентов можно определить только при осмотре.','Повреждённый блок с разъёмами. Часть корпуса отсутствует, сохранившиеся секции закрыты.','Отдельная монтажная кассета среди мелких деталей. На ней держатся короткие водоросли.']},
+    {type:'hull',word:'Фрагмент корпуса',min:9,max:20, descriptions:['Изогнутый участок корпуса с остатками внутренней обшивки. Внутренние полости снаружи не просматриваются.','Разорванная секция покоится на каменно-песчаном дне. Рядом лежат обломки рёбер и панелей.','Две смятые пластины удерживаются частью набора. Тень под нижним краем скрывает осадок и мелкие детали.']}
+  ];
+  let ordinal = 1;
+  clusters.forEach(cluster => {
+    for(let j=0;j<cluster.n;j++) {
+      const r=rand();
+      const spec=specs[r<.43?0:r<.73?1:r<.9?2:3];
+      let x=Math.max(165,Math.min(865,cluster.x+normal()*cluster.sx));
+      let y=Math.max(305,Math.min(850,cluster.y+normal()*cluster.sy));
+      // Preserve the 5×5 m island and the recognizable silhouette of known modules.
+      if(Math.hypot(x-390,y-330)<18) y+=28;
+      const major=spec.type==='equipment'||spec.type==='hull';
+      objects.push({
+        id:'FRG-'+String(ordinal).padStart(3,'0'), name:spec.word+' · '+String(ordinal).padStart(3,'0'),
+        x:Math.round(x*10)/10,y:Math.round(y*10)/10,angle:rand()*Math.PI*2,
+        size:Math.round((spec.min+rand()*(spec.max-spec.min))*10)/10,type:spec.type,
+        priority:major&&Math.hypot(x-590,y-540)<110?2:3,
+        searchRadius:major?20:14,description:spec.descriptions[Math.floor(rand()*spec.descriptions.length)]
+      });
+      ordinal++;
+    }
+  });
+
+  const cargo = [
+    ['Технический ящик', 'Грязный ящик за ребром корпуса. Замки и содержимое требуют осмотра.', [{name:'Медный провод',qty:6},{name:'Крепёж',qty:12}]],
+    ['Контейнер монтажного комплекта', 'Утопленный контейнер в монтажной нише. Маркировка частично стёрта.', [{name:'Титановые пластины',qty:4},{name:'Уплотнители',qty:8}]],
+    ['Кассета электроники', 'Небольшая закрытая кассета под обшивкой; на стыках виден осадок.', [{name:'Повреждённые платы',qty:3},{name:'Разъёмы',qty:7}]],
+    ['Ящик запасных деталей', 'Металлический ящик в углублении между деформированными панелями.', [{name:'Технические детали',qty:5},{name:'Кабельные жгуты',qty:3}]],
+    ['Контейнер обслуживания', 'Низкий контейнер с погнутой ручкой. Один край закрыт песком.', [{name:'Техническая ткань',qty:5},{name:'Фильтрующие вставки',qty:2}]],
+    ['Ящик арматуры', 'Узкий ящик за силовой балкой. Крышка удерживается деформированным крепежом.', [{name:'Клапаны',qty:3},{name:'Трубные соединители',qty:6}]],
+    ['Защищённая кассета', 'Кассета лежит в защищённой нише; целостность содержимого пока не установлена.', [{name:'Платы управления',qty:2},{name:'Контактные колодки',qty:4}]],
+    ['Контейнер ремонтных материалов', 'Ящик придавлен лёгким листом обшивки. Содержимое можно извлечь после осмотра.', [{name:'Металлический лом',qty:8},{name:'Герметизирующие ленты',qty:3}]]
+  ];
+  const parentIds=['HUL-02','HUL-03','HUL-04','EQP-01','EQP-02','HUL-08','HUL-06','ENG-03','HUL-05','EQP-03','EQP-04','HUL-07','ENG-01','ENG-02'];
+  const eligible=objects.filter(o=>/^FRG-/.test(o.id)&&(o.type==='equipment'||o.type==='hull'));
+  while(parentIds.length<30) {
+    const p=eligible[Math.floor(rand()*eligible.length)];
+    if(!parentIds.includes(p.id)) parentIds.push(p.id);
+  }
+  const hidden=parentIds.map((parentId,i)=>{
+    const p=objects.find(o=>o.id===parentId), item=cargo[i%cargo.length];
+    const a=rand()*Math.PI*2, distance=Math.min(p.searchRadius-3,p.size*.28+3);
+    return {id:'BOX-'+String(i+1).padStart(2,'0'), name:item[0]+' · '+String(i+1).padStart(2,'0'),
+      x:Math.round((p.x+Math.cos(a)*distance)*10)/10,y:Math.round((p.y+Math.sin(a)*distance)*10)/10,
+      parentId,contents:item[2].map(v=>({...v})),description:item[1]};
+  });
+  Object.assign(hidden[0],{name:'Контейнер узлов репликации',description:'Уцелевший контейнер в нише главной секции. Внутри находятся детали для восстановления пятой капсулы репликации; совместимость и работоспособность требуют проверки.',contents:[{name:'Узлы для пятой капсулы репликации',qty:2},{name:'Монтажные направляющие',qty:2}]});
+  Object.assign(hidden[5],{name:'Сервисный контейнер',description:'Повреждённый контейнер под внутренней обшивкой. Внутри лежит неработающий уборочный серв; пригодность деталей можно установить после разборки.',contents:[{name:'Повреждённый уборочный серв',qty:1},{name:'Техническая ткань',qty:3}]});
+  Object.assign(hidden[18],{name:'Кассета креплений репликатора',description:'Узкая кассета запасных креплений. Геометрия деталей соответствует узлам пятой капсулы репликации; необходима сверка с сохранившимся оборудованием.',contents:[{name:'Крепления пятой капсулы репликации',qty:4},{name:'Изоляционные прокладки',qty:6}]});
+
+  const resourcePoints=[
+    [234,414,'quartz'],[284,504,'quartz'],[335,397,'copper'],[493,370,'quartz'],
+    [552,429,'copper'],[342,555,'quartz'],[431,535,'salvage'],[514,563,'salvage'],
+    [624,556,'salvage'],[677,604,'salvage'],[462,627,'copper'],[354,688,'quartz'],
+    [285,700,'copper'],[588,676,'quartz'],[648,705,'copper'],[735,689,'salvage'],
+    [754,528,'quartz'],[820,480,'copper'],[715,773,'salvage'],[514,720,'quartz'],
+    [216,564,'copper'],[834,698,'quartz']
+  ];
+  const resourceInfo={
+    quartz:{name:'Кварцевые включения',description:'Светлые кристаллы в трещине породы. Видны на открытом дне; для сбора необходимо подойти к участку.'},
+    copper:{name:'Медьсодержащая порода',description:'Зеленоватые включения в обнажённом камне. Состав отмечен как потенциальный источник меди; требуется добыча и обработка.'},
+    salvage:{name:'Россыпь титанового лома',description:'Мелкие узнаваемые фрагменты титановой обшивки. Лежат открыто среди камней и песка; можно собрать после осмотра.'}
+  };
+  const resources=resourcePoints.map((p,i)=>({id:'RES-'+String(i+1).padStart(2,'0'),...resourceInfo[p[2]],x:p[0],y:p[1],type:p[2],amount:2+Math.floor(rand()*5)}));
+
+  // Extension data uses its own generator; the original survey and every saved
+  // container remain byte-for-byte stable in coordinate, identity and contents.
+  let detailSeed=0x54a9f1;
+  const detailRand=()=>{detailSeed=(Math.imul(detailSeed,1103515245)+12345)>>>0;return detailSeed/4294967296;};
+  const debrisTypes=[
+    {name:'Сорванная кабельная трасса',type:'beam',morphology:'cable',size:8.2,description:'Несколько жгутов ещё держатся на погнутом лотке. Свободные концы лежат на песке, внешнего питания нет.'},
+    {name:'Сегмент кольцевого шпангоута',type:'beam',morphology:'ring',size:10.5,description:'Дуга силового набора отделилась по местам крепления. Внутренняя грань открыта, в отверстиях осел светлый песок.'},
+    {name:'Решётчатый настил',type:'plate',morphology:'grating',size:7.8,description:'Кусок технического настила с регулярной сеткой. Решётка приподнята над дном одним смятым углом.'},
+    {name:'Опора приборного стола',type:'equipment',morphology:'rack',size:6.8,description:'Низкая стойка на двух разорванных опорах. От приборов остались посадочные гнёзда и короткие разъёмы.'},
+    {name:'Панель теплового экрана',type:'plate',morphology:'shield',size:7.6,description:'Многослойная панель с обожжённой внешней поверхностью. Срез показывает светлую прослойку между тонкими листами.'},
+    {name:'Разорванный патрубок',type:'engine',morphology:'pipe',size:8.5,description:'Изогнутый отрезок магистрали с обломанным фланцем. Трубка открыта с обоих концов и заполнена водой.'},
+    {name:'Крепёжная ферма',type:'beam',morphology:'truss',size:11.4,description:'Лёгкая ферма сложилась у центрального узла. Отдельные раскосы ещё соединены шарнирами, между ними виден грунт.'},
+    {name:'Разомкнутая сервисная рама',type:'equipment',morphology:'frame',size:9.1,description:'Прямоугольная рама с оторванной боковиной. Кабельные скобы и направляющие доступны внешнему осмотру.'}
+  ];
+  const driftLine=[[444,364],[498,452],[558,500],[627,568],[687,625],[748,696],[786,752]];
+  for(let i=0;i<40;i++){
+    const station=driftLine[i%driftLine.length],spec=debrisTypes[i%debrisTypes.length];
+    let x=station[0]+(detailRand()-.5)*94,y=station[1]+(detailRand()-.5)*67;
+    // Keep the capsule, main hulls and cave mouths legible as landmarks.
+    const keepClear=objects.filter(o=>o.priority===0||o.size>=25);
+    let attempts=0;
+    while(keepClear.some(o=>Math.hypot(x-o.x,y-o.y)<o.size*.63+6)&&attempts++<5){x+=14;y-=11;}
+    objects.push({id:'DBR-'+String(i+1).padStart(3,'0'),name:spec.name+' · '+String(i+1).padStart(2,'0'),
+      x:Math.round(x*10)/10,y:Math.round(y*10)/10,angle:Math.PI*.25+(detailRand()-.5)*2.2,
+      size:Math.round((spec.size*(.8+detailRand()*.4))*10)/10,type:spec.type,morphology:spec.morphology,
+      priority:3,searchRadius:14,description:spec.description});
+  }
+  const exterior={
+    hull:{condition:['Разрыв вдоль силового шва','Смятая обшивка','Открытые рёбра набора','Осадок на нижней кромке'],access:'Осмотр снаружи, вдоль разрыва',materials:'Корпусной сплав · силовой набор',searchHint:'Сначала проверьте монтажные ниши и пространство под приподнятой обшивкой.'},
+    plate:{condition:['Сорванные крепления','Загнутый край','Частично под осадком','Расслоение по кромке'],access:'Открытый фрагмент на грунте',materials:'Листовой сплав · композитная облицовка',searchHint:'Осмотрите обратную сторону и места крепления; предметы под панелью снаружи не различимы.'},
+    beam:{condition:['Излом у узла крепления','Погнутый силовой элемент','Разорванные распорки','Обрастание на стыках'],access:'Осмотр вдоль балки и торцов',materials:'Конструкционный сплав · крепёж',searchHint:'Проверьте стыки, торцы и углубления между раскосами.'},
+    engine:{condition:['Сорванный кожух','Узел не работает','Деформация внешнего кольца','Следы удара на опорах'],access:'Наружный осмотр, открытые разрывы',materials:'Технический сплав · кабельные магистрали',searchHint:'Сопоставьте геометрию узла и соседних фрагментов; внутренние части требуют отдельного осмотра.'},
+    equipment:{condition:['Часть корпуса отсутствует','Нарушена внешняя оболочка','Деформированы направляющие','Разъёмы покрыты осадком'],access:'Видимые панели и сервисные гнёзда',materials:'Монтажная рама · разъёмы · кожухи',searchHint:'Отметьте закрытые секции и сервисные гнёзда; наличие исправных деталей ещё не установлено.'},
+    replication:{condition:['Сохраняет аварийное питание'],access:'Снаружи через коридор с гидрозатвором',materials:'Герметичный корпус · системы репликации',searchHint:'Сохраните гидрозатвор и не нарушайте действующие магистрали при осмотре.'},
+    capsule:{condition:['Закреплена на островке'],access:'Закрытая капсула на суше',materials:'Стальная сферическая оболочка',searchHint:'Внешняя оболочка и крепления доступны осмотру. Состояние внутри определяется сюжетом.'}
+  };
+  objects.forEach((o,i)=>{const e=exterior[o.type]||exterior.equipment;Object.assign(o,{condition:e.condition[i%e.condition.length],access:e.access,materials:e.materials,searchHint:e.searchHint});});
+  objects.find(o=>o.id==='HUL-01').condition='Верхняя кромка выступает из воды';
+  objects.find(o=>o.id==='HUL-04').condition='Замкнутый объём, оболочка целее соседних';
+
+  const landmarks=[
+    {id:'LM-01',name:'Песчаная поляна',x:315,y:440,type:'sand',description:'Открытый участок светлого песка между рифовыми выступами. Низкие дюны показывают направление придонного течения; здесь удобно сверять положение относительно островка.'},
+    {id:'LM-02',name:'Коралловые чаши',x:252,y:455,type:'reef',description:'Округлые колонии образуют несколько чаш с песчаными промежутками. Над ними держится мелкая рыба, в тени камней видны губки и короткие мягкие колонии.'},
+    {id:'LM-03',name:'Грот скатов',x:280,y:740,type:'cave',description:'Низкий вход под каменной плитой. Скаты проходят вдоль наружной стенки, на пороге скопились коралловая крошка и песок. Внутренняя топология не разведана.'},
+    {id:'LM-04',name:'Светящийся свод',x:610,y:650,type:'cave',description:'Широкая тёмная арка. Мелкие светящиеся колонии отмечают нижнюю кромку свода, а песчаный язык уходит в тень. Это отметка входа, не схема внутреннего прохода.'},
+    {id:'LM-05',name:'Расколотая арка',x:790,y:460,type:'cave',description:'Разрыв между двумя скальными выступами образует узкий вход. Вдоль стены проходит слабое течение, у нижней кромки застряли отдельные элементы обшивки.'},
+    {id:'LM-06',name:'Кромка синего провала',x:735,y:716,type:'ridge',description:'Каменная ступень отделяет террасу с обломками от глубокого разлома. Параллельные сколы и борозды помогают увидеть направление спуска; за кромкой дно быстро темнеет.'},
+    {id:'LM-07',name:'Поляна ленточников',x:380,y:650,type:'kelp',description:'Просвет среди длинных лент водорослей. Стебли наклоняются вместе с водой; сквозь них видны неровные камни и небольшие участки чистого песка.'},
+    {id:'LM-08',name:'Рифовая терраса',x:542,y:378,type:'terrace',description:'Светлый уступ с небольшими скальными спинками и коралловыми колониями. Песчаные ложбины сходятся к склону, по которому рассеяны фрагменты корабля.'}
+  ];
+  const ecology=[
+    {id:'BIO-01',name:'Рифовые стайные рыбы',habitat:'Светлая отмель и коралловые поля',description:'Небольшие рыбы держатся над колониями, расходятся вокруг выступов и вновь собираются в стаю. Лучше заметны на фоне открытого песка.'},
+    {id:'BIO-02',name:'Донные скаты',habitat:'Внешний риф, грот и песчаные ложбины',description:'Плавно проходят над дном, работая широкими плавниками. Силуэт хорошо читается сбоку от рифовых стенок; взаимодействие с ними не требуется для обследования.'},
+    {id:'BIO-03',name:'Ленточные водоросли',habitat:'Долина «Лес приливов»',description:'Длинные гибкие ленты закреплены на камнях. Заросли скрывают мелкие детали и показывают наклон придонного потока.'},
+    {id:'BIO-04',name:'Ветвистые кораллы',habitat:'Хорошо освещённые рифовые спинки',description:'Разветвлённые колонии образуют тонкую структуру над камнем. Между ветвями держится мелкая живность; светлые окончания заметны с высоты.'},
+    {id:'BIO-05',name:'Чашевидные кораллы',habitat:'Коралловые поля и Тихий риф',description:'Приземистые колонии с округлой поверхностью и чашами. Между ними остаются естественные песчаные проходы.'},
+    {id:'BIO-06',name:'Трубчатые губки',habitat:'Каменные уступы и затенённые стенки',description:'Короткие группы мягких трубок растут на твёрдом основании. Окраска приглушённая, у отверстий видны тёмные внутренние полости.'},
+    {id:'BIO-07',name:'Мягкие полипы',habitat:'Защищённые ниши между камнями',description:'Небольшие колонии с мягкими щупальцами колышутся в воде. Чаще встречаются в затишье за выступами и рядом с обросшим металлом.'},
+    {id:'BIO-08',name:'Светящиеся колонии',habitat:'Кромки глубоких уступов и входы в пещеры',description:'Мелкие точки холодного свечения отмечают твёрдые поверхности в тени. Они помогают читать силуэт свода, но не раскрывают маршрут внутри пещер.'}
+  ];
+
+  window.WORLD={version:1,zones,objects,hidden,resources,landmarks,ecology,start:{x:510,y:490},
+    meta:{scale:'1 единица карты = 0,5 м',extent:'500 × 500 м',layout:'Локальная схема обследования. Рельеф, расположение обломков и состав находок подготовлены для этой игровой сцены.',canon:'Островок 5×5 м, закрытая капсула Ханны, оторванные двигатели и работающий отсек репликации с гидрозатвором сохранены. Медикаменты с корабля уже забраны.'}};
+})();
+
+</script><script>
+/* Detailed, deterministic ship fragments. Cached sprites use no external assets. */
+(() => {
+  'use strict';
+  const TAU=Math.PI*2,cache=new Map();
+  const clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
+  function hash(s){let h=2166136261;for(let i=0;i<s.length;i++){h^=s.charCodeAt(i);h=Math.imul(h,16777619);}return h>>>0;}
+  function rng(seed){return()=>{seed=(Math.imul(seed,1664525)+1013904223)>>>0;return seed/4294967296;};}
+  function polygon(c,points){c.beginPath();points.forEach((p,i)=>i?c.lineTo(p[0],p[1]):c.moveTo(p[0],p[1]));c.closePath();}
+  function line(c,x1,y1,x2,y2,color,width=1){c.beginPath();c.moveTo(x1,y1);c.lineTo(x2,y2);c.strokeStyle=color;c.lineWidth=width;c.stroke();}
+  function ellipse(c,x,y,rx,ry,fill,stroke,width=1){c.beginPath();c.ellipse(x,y,Math.max(.01,rx),Math.max(.01,ry),0,0,TAU);if(fill){c.fillStyle=fill;c.fill();}if(stroke){c.strokeStyle=stroke;c.lineWidth=width;c.stroke();}}
+  function fillPoly(c,pts,fill,stroke,width=1){polygon(c,pts);c.fillStyle=fill;c.fill();if(stroke){c.strokeStyle=stroke;c.lineWidth=width;c.stroke();}}
+  function gradient(c,colors,y1=-24,y2=24){const g=c.createLinearGradient(0,y1,0,y2);colors.forEach((col,i)=>g.addColorStop(i/(colors.length-1),col));return g;}
+  function rivets(c,x1,y1,x2,y2,n=7){for(let i=0;i<n;i++){const t=i/(n-1);ellipse(c,x1+(x2-x1)*t,y1+(y2-y1)*t,.65,.65,'#b6c2ad99');}}
+  const metalColors=[['#a9b6a2','#6c837c','#344e56'],['#9dafac','#6d8787','#365460'],['#b1ad92','#7f8974','#3b5457'],['#91a9a5','#5f7c79','#304e56']];
+  function wear(c,random,points,bounds){
+    c.save();polygon(c,points);c.clip();
+    const [x1,y1,x2,y2]=bounds;
+    for(let k=0;k<31;k++){const x=x1+random()*(x2-x1),y=y1+random()*(y2-y1);c.globalAlpha=.06+random()*.1;ellipse(c,x,y,.5+random()*3,.25+random()*1.3,random()<.55?'#c5cab0':'#663d22');}
+    c.globalAlpha=1;
+    for(let k=0;k<12;k++){const x=x1+random()*(x2-x1),y=y1+random()*(y2-y1);line(c,x,y,x+2+random()*7,y-.3+random(),k%3?'#d8dec329':'#102e3866',.35+random()*.25);}
+    // Sediment builds along the lee side, rather than covering the entire fragment.
+    const sand=c.createLinearGradient(0,y1,0,y2);sand.addColorStop(0,'#9bba9500');sand.addColorStop(.7,'#9bba9500');sand.addColorStop(1,'#a9bd8e55');c.fillStyle=sand;c.fillRect(x1,y1,x2-x1,y2-y1);c.restore();
+  }
+  function cable(c,x,y,length,bend){c.beginPath();c.moveTo(x,y);c.bezierCurveTo(x+length*.4,y+bend,x+length*.7,y-bend*.7,x+length,y+bend*.5);c.lineWidth=.75;c.strokeStyle='#123540';c.stroke();c.beginPath();c.moveTo(x,y-.4);c.bezierCurveTo(x+length*.4,y+bend-.4,x+length*.7,y-bend*.7-.4,x+length,y+bend*.5-.4);c.lineWidth=.3;c.strokeStyle='#a3afa37a';c.stroke();}
+  function hull(c,o,random,variant,colors){
+    let top=[],bottom=[],h=variant===2?27:22+random()*7;
+    for(let i=0;i<9;i++){const x=-49+i*12.1,yy=-h+(i===0||i===8?8:0)+(random()-.5)*7;top.push([x,yy]);bottom.unshift([x+(random()-.5)*5,h+(random()-.5)*7-(i===0||i===8?6:0)]);}
+    const pts=[...top,...bottom];
+    c.save();c.translate(2.5,4.8);fillPoly(c,pts,'#001c2da8');c.restore();
+    fillPoly(c,pts,gradient(c,colors,-h,h),'#aab9a494',.9);wear(c,random,pts,[-50,-h,50,h]);
+    // Intact upper plating and exposed lower ribs share the same broken envelope.
+    const open=variant!==3||o.id==='HUL-02';
+    if(open){
+      const opening=[[-39,-h*.21],[-22,-h*.62],[0,-h*.58],[25,-h*.34],[40,1],[28,h*.6],[2,h*.67],[-27,h*.49]];
+      fillPoly(c,opening,gradient(c,['#112d35','#0a2935','#1b3a43'],-h*.6,h*.6),'#cad0ad66',.6);
+      c.save();polygon(c,opening);c.clip();
+      for(let i=-3;i<4;i++){const x=i*11+random()*3;c.beginPath();c.moveTo(x-5,-h*.7);c.quadraticCurveTo(x+5,-h*.15,x+3,h*.6);c.strokeStyle='#789286';c.lineWidth=2.2;c.stroke();c.beginPath();c.moveTo(x-6,-h*.7);c.quadraticCurveTo(x+4,-h*.15,x+2,h*.6);c.strokeStyle='#b4c5a980';c.lineWidth=.55;c.stroke();}
+      line(c,-44,5,43,5,'#667f7280',1.3);line(c,-44,9,43,9,'#062a3655',1);c.restore();
+      // Bent strips of plating remain over the dark interior.
+      if(variant%2===0)fillPoly(c,[[-18,-h*.8],[1,-h*.88],[15,-2],[3,2],[-5,-h*.2]],gradient(c,['#b1b6a0','#657c70'],-h,3),'#c3c9a98a',.6);
+      if(variant===1)fillPoly(c,[[18,h*.9],[35,h*.5],[31,-2],[20,1]],'#768e7d','#bdc6a666',.6);
+    } else {
+      line(c,-35,-17,34,13,'#c0c6ab66',.8);line(c,-30,-17,-35,17,'#c0c6ab66',.7);line(c,3,-22,-4,24,'#304e5177',1);line(c,30,-14,25,20,'#304e5177',1);
+      c.save();c.translate(-3,0);c.rotate(.15);fillPoly(c,[[-13,-9],[15,-9],[15,9],[-13,9]],'#415d60','#bdc7ae77',.7);line(c,-7,-4,10,-4,'#9fafa299',.7);c.restore();
+    }
+    line(c,-40,-h+4,37,-h+6,'#cbd1b177',.6);line(c,-39,h-3,35,h-5,'#173b43b0',1.1);rivets(c,-36,-h+6,32,-h+7,8);
+    // A faded industrial stripe survives across some external panels.
+    if(variant%3===0){c.save();polygon(c,pts);c.clip();c.globalAlpha=.35;c.fillStyle='#bc9660';c.translate(-26,0);c.rotate(-.2);c.fillRect(-3,-38,3,76);c.fillRect(2,-38,1,76);c.restore();}
+    for(let i=0;i<3;i++)cable(c,41-i*5,h*.4,8+random()*7,random()*8-4);
+    if(o.protruding){fillPoly(c,[[-26,-12],[-14,-42],[-3,-38],[7,-17]],gradient(c,['#b9bca6','#6c847b'],-42,-8),'#d1d5bd99',.8);line(c,-16,-34,-20,-13,'#d8ddc17a',.7);}
+  }
+  function engine(c,o,random,variant,colors){
+    ellipse(c,3,5,51,27,'#001e2da3');
+    const pts=[[-45,-18],[-32,-23],[26,-23],[42,-15],[42,15],[27,23],[-33,23],[-45,16]];
+    fillPoly(c,pts,gradient(c,colors,-25,25),'#b3c0acaa',.8);wear(c,random,pts,[-45,-23,44,23]);
+    for(let i=0;i<5;i++){const x=-34+i*12;c.fillStyle=i%2?'#496765':'#94a38c';c.fillRect(x,-22,1.7,44);line(c,x-1,-19,x-1,19,'#c2c7ad77',.65);}
+    // Concentric nozzle and vanes make engines identifiable even at map scale.
+    ellipse(c,38,0,12,28,'#66877d','#c5cdb0bb',1);ellipse(c,39,0,8.5,22,'#102e3b','#9fb59c99',.9);ellipse(c,40,0,4.5,15,'#061d2b','#688a83aa',.8);
+    for(let i=-2;i<=2;i++)line(c,33,i*6,44,i*5,'#73958a99',.7);
+    fillPoly(c,[[-34,-22],[-24,-34],[-13,-34],[-17,-22]],'#5c7974','#9bafa088',.6);fillPoly(c,[[-28,21],[-15,32],[-5,32],[-9,21]],'#4a6a66','#879d8e77',.6);
+    line(c,-40,-12,22,-12,'#d2bd8c8c',2);line(c,-41,-8,17,-8,'#2a4d52',1.2);
+    cable(c,-38,15,-16,7);cable(c,-35,18,-10,-3);ellipse(c,-41,0,4,10,'#2d4e54','#b1bba177',.7);
+  }
+  function replication(c){
+    const pts=[[-43,-30],[-35,-36],[35,-36],[43,-28],[43,28],[34,36],[-35,36],[-43,29]];
+    c.save();c.translate(2,5);fillPoly(c,pts,'#001d2d99');c.restore();
+    fillPoly(c,pts,gradient(c,['#a0b8aa','#68887e','#365a61'],-36,36),'#c6d2b3b3',1);
+    fillPoly(c,[[-33,-25],[30,-25],[33,25],[-32,25]],'#234c57','#c9d2b388',.9);
+    fillPoly(c,[[-25,-18],[23,-18],[26,17],[-24,19]],gradient(c,['#1e4149','#0c2f3c'],-18,19),'#82a59a66',.6);
+    line(c,-7,-18,-7,18,'#738e7e99',1);line(c,10,-18,10,18,'#738e7e99',1);
+    for(const x of [-18,1,18]){ellipse(c,x,-7,4.3,8.5,'#496d6e','#a9c2b2aa',.65);line(c,x-2,-12,x-2,-4,'#d1dcc077',.7);}
+    // Functional emergency lights; the rest of the wreck has no power.
+    c.shadowColor='#f3ad54';c.shadowBlur=7;c.fillStyle='#efb268';c.fillRect(-26,21,51,2);c.fillRect(-31,-19,2,14);c.shadowBlur=0;
+    fillPoly(c,[[-43,-10],[-59,-10],[-59,4],[-43,9]],'#5e7b70','#b9c4aa99',.8);line(c,-57,-5,-44,1,'#dba15fa8',2);
+    for(const y of [-31,31])rivets(c,-29,y,29,y,7);
+    fillPoly(c,[[33,-24],[39,-20],[39,-10],[34,-10]],'#c5c5a3','#58796c',.5);
+  }
+  function capsule(c){
+    for(let i=0;i<4;i++){const a=Math.PI*.25+i*Math.PI*.5,x=Math.cos(a)*43,y=Math.sin(a)*43;line(c,x*.7,y*.7,x,y,'#3b615b',4);ellipse(c,x,y,5,3,'#8ca591','#d1d8b3aa',.7);}
+    ellipse(c,3,5,42,42,'#00233380');
+    const g=c.createRadialGradient(-17,-18,2,4,7,51);g.addColorStop(0,'#eef1dc');g.addColorStop(.29,'#c2d1be');g.addColorStop(.67,'#7f9c92');g.addColorStop(1,'#345d62');ellipse(c,0,0,42,42,g,'#d1dfc6dd',1.2);
+    c.save();c.beginPath();c.arc(0,0,41,0,TAU);c.clip();ellipse(c,0,0,41,12,null,'#406c6eaa',1);ellipse(c,0,1,17,42,null,'#66877b88',.8);ellipse(c,-1,-3,40,11,null,'#dae5cc77',.6);c.restore();
+    ellipse(c,-5,-5,11,11,'#869f91','#dce6cfb3',.7);ellipse(c,-5,-5,7,7,'#526f6b','#b9c8b1aa',.6);line(c,-7,-7,-2,-7,'#d5ddc0',.8);c.shadowColor='#e6bf7c';c.shadowBlur=5;ellipse(c,9,15,2,2,'#ebc077');c.shadowBlur=0;
+    line(c,-20,-30,-16,-34,'#f0f1dbb0',1.5);
+  }
+  function equipment(c,random,variant,colors){
+    const pts=variant%2?[[-40,-29],[31,-29],[42,-18],[42,23],[29,30],[-40,30]]:[[-44,-24],[37,-24],[44,-16],[44,25],[-39,25],[-44,17]];
+    c.save();c.translate(3,4);fillPoly(c,pts,'#001f2ca3');c.restore();fillPoly(c,pts,gradient(c,colors,-30,30),'#bfccafaa',.9);wear(c,random,pts,[-44,-29,44,30]);
+    if(variant%3===0){
+      fillPoly(c,[[-32,-20],[25,-20],[25,20],[-32,20]],'#153843','#a8bd9f99',1.2);for(let i=0;i<4;i++){const x=-26+i*13;fillPoly(c,[[x,-15],[x+8,-15],[x+8,13],[x,13]],i%2?'#6b8e85':'#466d70','#a2b8a577',.6);line(c,x+2,-11,x+2,8,'#ccbd8a88',.6);}cable(c,30,15,17,6);
+    } else if(variant%3===1){
+      fillPoly(c,[[-33,-18],[31,-18],[31,18],[-33,18]],'#315963','#9eb99f88',.7);for(let k=0;k<3;k++){ellipse(c,-20+k*21,0,7,13,'#60847a','#a5b99c88',.8);line(c,-20+k*21,-8,-20+k*21,7,'#234954aa',1);}
+    } else {
+      fillPoly(c,[[-30,-20],[29,-20],[34,16],[-32,20]],'#183d48','#9fb1a277',.7);for(let k=0;k<3;k++){line(c,-22,-12+k*11,23,-12+k*11,'#7b9a8f',3);line(c,-21,-13+k*11,22,-13+k*11,'#b2c0a588',.6);}cable(c,-18,23,-28,7);cable(c,-8,25,-25,13);
+    }
+    for(const x of [-37,37])for(const y of [-18,18])ellipse(c,x,y,1.2,1.2,'#c2c9b0');
+  }
+  function beam(c,random,variant,colors){
+    if(variant===0){
+      const pts=[[-49,-7],[-30,-7],[-11,2],[16,-3],[49,-2],[49,5],[14,6],[-14,11],[-33,1],[-49,1]];fillPoly(c,pts,gradient(c,colors,-10,11),'#b1bea8aa',.8);line(c,-45,-3,-31,-3,'#d1d5b8aa',.8);line(c,-26,-2,-12,6,'#d1d5b8aa',.8);line(c,-8,6,43,1,'#c0cbb0aa',.7);
+    } else {
+      const y=variant%2?8:5;
+      fillPoly(c,[[-49,-y],[44,-y],[49,-2],[42,2],[-44,2]],gradient(c,colors,-y,2),'#a9bba49c',.7);
+      fillPoly(c,[[-45,y],[44,y],[47,y+3],[-44,y+3]],'#6b8b7a','#afc0a977',.6);
+      for(let x=-37;x<37;x+=16){line(c,x,-y,x+10,y,'#8fa68e',2);line(c,x-1,-y,x+9,y,'#d0d5b36e',.6);}
+      line(c,-43,-y+1,38,-y+1,'#d1d6b778',.6);
+    }
+    if(variant%2)cable(c,42,3,15,7);
+  }
+  function plate(c,random,variant,colors){
+    const n=7+variant%3,pts=[];for(let i=0;i<n;i++){const a=TAU*i/n,rx=41+random()*10,ry=23+random()*10;pts.push([Math.cos(a)*rx,Math.sin(a)*ry]);}
+    c.save();c.translate(2,3);fillPoly(c,pts,'#00232e9c');c.restore();fillPoly(c,pts,gradient(c,colors,-28,29),'#b4c2a7aa',.8);wear(c,random,pts,[-50,-34,50,34]);
+    c.save();polygon(c,pts);c.clip();line(c,-32,-31,-26,30,'#2349539c',.7);line(c,10,-31,18,30,'#dae0bf5a',.75);line(c,-49,-3,49,5,'#b2c1a35c',.55);rivets(c,-34,-23,32,-17,6);
+    if(variant%2===0){c.globalAlpha=.38;c.fillStyle='#b49a68';c.translate(-7,0);c.rotate(.45);c.fillRect(-4,-45,5,90);c.fillRect(4,-45,1.5,90);}c.restore();
+    // A sheared fold catches light along one torn edge.
+    fillPoly(c,[pts[0],pts[1],[pts[1][0]-4,pts[1][1]+3],[pts[0][0]-7,pts[0][1]+2]],'#b3bfa14d',null);
+  }
+  function morphology(c,o,random,colors){
+    const m=o.morphology;if(!m||m==='shield')return false;
+    if(m==='cable'){
+      fillPoly(c,[[-49,-9],[34,-9],[40,4],[-44,8]],'#57736e','#acbba188',.8);
+      for(let i=0;i<6;i++){c.beginPath();c.moveTo(-51,-9+i*3);c.bezierCurveTo(-20,-15+i*4,8,-2+i*2,33,1+i);c.bezierCurveTo(42,2+i,43+i*2,11-i*4,57-i,16-i*3);c.strokeStyle=i%2?'#b2ac87':'#31555b';c.lineWidth=i%2?1:1.6;c.stroke();}
+      for(const x of [-35,-6,20])line(c,x,-10,x+2,10,'#b6baa080',2);
+    } else if(m==='ring'){
+      c.beginPath();c.ellipse(0,3,46,31,0,-Math.PI*.96,-Math.PI*.05);c.strokeStyle='#35575c';c.lineWidth=9;c.stroke();c.beginPath();c.ellipse(-1,0,46,31,0,-Math.PI*.96,-Math.PI*.05);c.strokeStyle='#94a58c';c.lineWidth=5;c.stroke();c.beginPath();c.ellipse(-1,-1,46,31,0,-Math.PI*.96,-Math.PI*.05);c.strokeStyle='#c7cdb06b';c.lineWidth=.8;c.stroke();
+      for(let i=0;i<8;i++){const a=-Math.PI*.92+i*Math.PI*.12,x=Math.cos(a)*46,y=Math.sin(a)*31;line(c,x*.94,y*.9,x*1.08,y*1.2,'#5f7d72',2.5);}
+    } else if(m==='grating'){
+      const pts=[[-43,-29],[40,-25],[47,20],[-39,28]];fillPoly(c,pts,'#173e4680','#97ae9988',2);c.save();polygon(c,pts);c.clip();for(let x=-40;x<46;x+=9)line(c,x,-29,x+7,29,'#8ca38c',1);for(let y=-26;y<28;y+=8)line(c,-46,y,46,y-1,'#91aa9280',1.4);c.restore();
+    } else if(m==='rack'||m==='frame'){
+      const pts=[[-43,-30],[33,-30],[43,-21],[43,29],[-42,29]];fillPoly(c,pts,'#173e4630','#849c84',3);line(c,-42,-31,32,-31,'#c7ceb19c',.7);line(c,-42,-31,-42,26,'#c7ceb199',.7);
+      if(m==='rack'){for(const y of [-16,0,16]){line(c,-36,y,37,y,'#8ea587',3);line(c,-36,y-1,37,y-1,'#ced5b180',.7);}for(const x of [-30,25])line(c,x,-21,x,24,'#395c5e',1.5);}
+      else{c.clearRect(29,-30,18,13);cable(c,29,-26,21,9);line(c,-15,-26,-15,26,'#547b72',2);}
+    } else if(m==='pipe'){
+      c.beginPath();c.moveTo(-42,19);c.bezierCurveTo(-37,-19,-12,-29,20,-17);c.lineTo(39,0);c.strokeStyle='#244a53';c.lineWidth=17;c.stroke();c.beginPath();c.moveTo(-43,16);c.bezierCurveTo(-39,-22,-13,-32,19,-20);c.lineTo(37,-3);c.strokeStyle='#8a9f87';c.lineWidth=12;c.stroke();c.beginPath();c.moveTo(-44,12);c.bezierCurveTo(-40,-25,-15,-34,17,-23);c.lineTo(35,-6);c.strokeStyle='#c3ccb077';c.lineWidth=1.7;c.stroke();ellipse(c,38,-2,9,13,'#173c47','#b2bfa0aa',2);ellipse(c,38,-2,5,9,'#082b38','#617f76',.8);
+    } else if(m==='truss'){beam(c,random,1,colors);}
+    else return false;
+    return true;
+  }
+  function makeSprite(o){
+    const s=hash(o.id),random=rng(s),variant=s%5;
+    const resolution=clamp(Math.ceil(o.size*9/16)*16,128,512),canvas=document.createElement('canvas');canvas.width=canvas.height=resolution;
+    const c=canvas.getContext('2d');c.scale(resolution/150,resolution/150);c.translate(75,75);c.lineJoin='round';c.lineCap='round';
+    const colors=metalColors[(s>>>3)%metalColors.length];
+    if(morphology(c,o,random,colors)){}else if(o.type==='capsule')capsule(c);else if(o.type==='replication')replication(c);else if(o.type==='hull')hull(c,o,random,variant,colors);else if(o.type==='engine')engine(c,o,random,variant,colors);else if(o.type==='equipment')equipment(c,random,variant,colors);else if(o.type==='beam')beam(c,random,variant,colors);else plate(c,random,variant,colors);
+    return canvas;
+  }
+  function draw(ctx,view,o,opts={}){
+    const {scale,offsetX,offsetY,width,height}=view,x=o.x*scale+offsetX,y=o.y*scale+offsetY,n=o.size*scale;
+    const margin=Math.max(n,30);if(x< -margin||y< -margin||x>width+margin||y>height+margin)return;
+    let sprite=cache.get(o.id);if(!sprite){sprite=makeSprite(o);cache.set(o.id,sprite);}
+    ctx.save();ctx.translate(x,y);ctx.rotate(o.angle||0);
+    if(opts.searched)ctx.globalAlpha=.72;
+    ctx.drawImage(sprite,-n*.75,-n*.75,n*1.5,n*1.5);
+    ctx.restore();
+    if(opts.selected||opts.hover){
+      const r=Math.max(n*.64,13);ctx.save();ctx.translate(x,y);ctx.strokeStyle=opts.selected?'#cff3bd':'#acd9cb';ctx.lineWidth=opts.selected?1.2:.8;ctx.setLineDash([3,5]);ctx.beginPath();ctx.arc(0,0,r,0,TAU);ctx.stroke();ctx.setLineDash([]);
+      if(opts.selected){const a=8,b=4;for(const [sx,sy]of [[-1,-1],[1,-1],[-1,1],[1,1]]){ctx.beginPath();ctx.moveTo(sx*(r+b),sy*(r-a));ctx.lineTo(sx*(r+b),sy*(r+b));ctx.lineTo(sx*(r-a),sy*(r+b));ctx.stroke();}}
+      ctx.restore();
+    }
+    if(opts.searched&&n>10&&!opts.selected){ctx.save();ctx.font='8px monospace';ctx.textAlign='center';ctx.fillStyle='#b7dfaa';ctx.fillText('✓',x+n*.42,y-n*.34);ctx.restore();}
+    if(o.type==='replication'&&!opts.reduceMotion){ctx.save();ctx.globalAlpha=.13+(Math.sin((opts.time||0)*.0018)+1)*.035;ctx.fillStyle='#ffd796';ctx.beginPath();ctx.arc(x,y,Math.max(5,n*.25),0,TAU);ctx.fill();ctx.restore();}
+  }
+  window.WreckRenderer={draw,clearCache:()=>cache.clear(),cacheSize:()=>cache.size};
+})();
+
+</script><script>
+/* THANATOS ATLAS 02 — field navigation, exploration and local expedition state. */
+(() => {
+'use strict';
+const $=id=>document.getElementById(id),canvas=$('map'),ctx=canvas.getContext('2d'),T=window.Terrain,W=window.WORLD,M=window.ExpeditionModel;
+const KEY='thanatos-expedition-v1',TAU=Math.PI*2;
+const clamp=(v,a,b)=>Math.max(a,Math.min(b,v)),dist=(a,b)=>Math.hypot(a.x-b.x,a.y-b.y),metres=(a,b)=>dist(a,b)*.5;
+const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const objects=new Map(W.objects.map(o=>[o.id,o])),boxes=new Map(W.hidden.map(o=>[o.id,o])),resources=new Map(W.resources.map(o=>[o.id,o]));
+const landmarks=W.landmarks||[],typeNames={hull:'Корпус',plate:'Обшивка',engine:'Двигательный узел',beam:'Элемент набора',equipment:'Оборудование',replication:'Отсек репликации',capsule:'Капсула'};
+let state=M.create(W),startupMessage='',storageOk=true,localExists=false;
+try {const saved=localStorage.getItem(KEY);if(saved){state=M.validate(JSON.parse(saved),W);localExists=true;}}catch {storageOk=false;}
+if(location.hash.startsWith('#s=')){
+ try {state=M.decode(location.hash.slice(3),W);startupMessage='Снимок экспедиции загружен. Продолжайте исследование.';}
+ catch {startupMessage='Ссылка повреждена. Восстановлен последний локальный прогресс.';}
+ try {history.replaceState(null,'',location.pathname+location.search);}catch {}
+}
+const view={width:0,height:0,scale:1,offsetX:0,offsetY:0},miniCtx=$('minimap').getContext('2d');
+let mode='explore',selected=null,hover=null,dirty=true,overlayDirty=true,overlays=[],initialized=false,navFilter='priority',scanBusy=false,scanStart=0,scanTimer=null;
+let toastTimer=null,persistTimer=null,lastFrame=0,lastMini=0,profileStats=null,pendingPin=null,positionBefore=null,positionHistory=[],cinematic=false;
+let activePointers=new Map(),gesture=null,drag=null,lastTap=0;
+const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
+function toast(message){$('toast').textContent=message;$('toast').classList.add('show');clearTimeout(toastTimer);toastTimer=setTimeout(()=>$('toast').classList.remove('show'),4500);}
+function screen(p){return {x:p.x*view.scale+view.offsetX,y:p.y*view.scale+view.offsetY};}
+function world(x,y){return {x:(x-view.offsetX)/view.scale,y:(y-view.offsetY)/view.scale};}
+function rememberView(){state.view={scale:view.scale,center:M.bounds(world(view.width*.5,view.height*.5))||{x:500,y:500}};}
+function persist(){clearTimeout(persistTimer);rememberView();try{localStorage.setItem(KEY,JSON.stringify(state));storageOk=true;}catch{storageOk=false;}$('saveStatus').textContent=storageOk?'СОХРАНЕНО В БРАУЗЕРЕ':'НЕТ АВТОСОХРАНЕНИЯ · ЭКСПОРТ В ЖУРНАЛЕ';$('saveStatus').classList.toggle('save-error',!storageOk);}
+function schedulePersist(){clearTimeout(persistTimer);persistTimer=setTimeout(persist,350);}
+function updateAll({detail=true}={}){dirty=true;overlayDirty=true;updateTelemetry();if(detail&&selected)renderDetail();if(!$('navigation').hidden)renderNavigation();if(!$('routePanel').hidden)renderRoute();persist();}
+function focus(x,y,scale=view.scale){view.scale=clamp(scale,.2,5.2);view.offsetX=view.width*.5-x*view.scale;view.offsetY=view.height*.5-y*view.scale;dirty=true;updateScale();schedulePersist();}
+function overview(){focus(510,520,Math.max(view.width/1120,view.height/790));}
+function fitAll(){focus(500,500,Math.min((view.width-32)/1000,(view.height-70)/1000));}
+function zoom(f,cx=view.width*.5,cy=view.height*.5){const p=world(cx,cy);view.scale=clamp(view.scale*f,.2,5.2);view.offsetX=cx-p.x*view.scale;view.offsetY=cy-p.y*view.scale;dirty=true;updateScale();schedulePersist();}
+function updateScale(){const options=[5,10,20,50,100],m=options.reduce((best,n)=>Math.abs(n*2*view.scale-100)<Math.abs(best*2*view.scale-100)?n:best,50);$('scaleBar').style.width=m*2*view.scale+'px';$('scaleText').textContent=m+' м';$('zoomLabel').textContent=Math.round(view.scale*100)+'%';}
+function resize(){const r=$('mapArea').getBoundingClientRect(),center=initialized?world(view.width*.5,view.height*.5):null,dpr=Math.min(devicePixelRatio||1,2);view.width=r.width;view.height=r.height;canvas.width=Math.round(r.width*dpr);canvas.height=Math.round(r.height*dpr);ctx.setTransform(dpr,0,0,dpr,0,0);if(!initialized){if(state.view)focus(state.view.center.x,state.view.center.y,state.view.scale);else overview();initialized=true;}else focus(center.x,center.y);overlayDirty=true;dirty=true;updateScale();}
+function depthLabel(p){return T.depth(p.x,p.y)<0?'Суша':Math.round(T.depth(p.x,p.y))+' м';}
+function bearingTo(p){return (Math.atan2(p.x-state.player.x,-(p.y-state.player.y))*180/Math.PI+360)%360;}
+function nameOf(o,kind){return kind==='box'&&!state.identified.includes(o.id)?'Неизвестный замкнутый объект':o.name||o.label;}
+function updateTelemetry(){const d=Math.max(0,T.depth(state.player.x,state.player.y));$('depthValue').innerHTML=Math.round(d)+'<small> м'+(d===0?' · суша':'')+'</small>';$('coordValue').textContent=(state.player.x>=390?'E ':'W ')+Math.round(Math.abs(state.player.x-390)*.5)+' / '+(state.player.y>=330?'S ':'N ')+Math.round(Math.abs(state.player.y-330)*.5)+' м';$('bearingValue').textContent='КУРС '+String(Math.round(state.bearing)).padStart(3,'0')+'°';$('bearingInput').value=Math.round(state.bearing);$('journalCount').textContent=state.identified.length+state.collected.filter(id=>resources.has(id)).length;const current=T.current?.(state.player.x,state.player.y);$('regionValue').textContent=T.region(state.player.x,state.player.y)+(current?' · течение '+current.speed.toFixed(1)+' м/с':'');$('undoPosition').disabled=!positionHistory.length;}
+function pushPosition(previous){if(!previous||dist(previous,state.player)<.05)return;positionHistory.push({...previous});positionHistory=positionHistory.slice(-20);const last=state.trail.at(-1);if(!last||dist(last,previous)>2)state.trail.push({...previous});state.trail.push({...state.player});state.trail=state.trail.slice(-240);}
+function movePlayer(p,{commit=true}={}){const next=M.bounds(p);if(!next)return;const prev={...state.player};state.player=next;dirty=true;updateTelemetry();if(commit){pushPosition(prev);updateAll();}else if(selected){const node=$('targetRange');if(node)node.textContent=Math.round(metres(state.player,selected.o))+' м';}}
+const hints={explore:'Потяните карту · Колесо — масштаб · Клик — сведения',position:'Укажите позицию Виртуоза кликом · Esc — отмена',route:'Кликните по карте: добавить точку маршрута · Esc — завершить',pin:'Кликните по карте, чтобы оставить личную метку'};
+function setMode(next){mode=next;for(const [id,key]of [['exploreBtn','explore'],['positionBtn','position'],['routeBtn','route'],['pinBtn','pin']]){$(id).classList.toggle('active',key===next);$(id).setAttribute('aria-pressed',String(key===next));}canvas.classList.toggle('position-mode',next!=='explore');$('modeHint').textContent=hints[next];if(next==='route'){closeNavigation();$('routePanel').hidden=false;renderRoute();}dirty=true;overlayDirty=true;}
+function cancelScan(){clearTimeout(scanTimer);scanBusy=false;$('scanBtn').disabled=false;$('scanStatus').textContent='СИСТЕМА ГОТОВА';$('scanProgress').style.width='0%';dirty=true;}
+function scan(){if(scanBusy)return;scanBusy=true;scanStart=performance.now();$('scanBtn').disabled=true;$('scanStatus').textContent='СКАНИРОВАНИЕ…';const p={...state.player},course=state.bearing;dirty=true;scanTimer=setTimeout(()=>{cancelScan();if(dist(p,state.player)>1||Math.abs(course-state.bearing)>.1){toast('Позиция или курс изменились. Повторите сканирование.');return;}const r=M.scan(state,W);updateAll();toast(r.found.length?'Сектор проверен. Новых замкнутых объектов: '+r.found.length+'.':'Сектор проверен. Новых сигналов нет.');},reduced?300:1800);}
+function selection(o,kind,{center=false}={}){selected={o,kind};if(['object','box','resource'].includes(kind))state.bearing=bearingTo(o);if(center)focus(o.x,o.y,Math.max(view.scale,1.8));$('detail').hidden=false;$('minimap').parentElement.classList.add('detail-open');$('hoverTip').hidden=true;renderDetail();updateTelemetry();persist();dirty=true;overlayDirty=true;}
+function closeDetail(){selected=null;$('detail').hidden=true;$('minimap').parentElement.classList.remove('detail-open');dirty=true;overlayDirty=true;}
+function renderDetail(){if(!selected)return;const {o,kind}=selected,near=M.canReach(state.player,o),known=kind!=='box'||state.identified.includes(o.id),taken=state.collected.includes(o.id);let tag='',description=o.description||'',extra='',action='',foot='';
+ if(kind==='object'){
+  tag=typeNames[o.type]||'Фрагмент';if(o.priority===1)extra='<span class="priority">ПРИОРИТЕТ I · ЗАМКНУТЫЕ ОБЪЁМЫ</span>';
+  if(o.type==='capsule')foot='Островок 5 × 5 м · закрытая стальная капсула';
+  else{const done=state.searched.includes(o.id);action='<button class="primary" id="inspectBtn" '+(!near||done?'disabled':'')+'>'+ (done?'✓ Обследовано':'Обследовать фрагмент')+'</button>';foot=done?'Результат осмотра сохранён.':near?'Вы достаточно близко для осмотра.':'Для осмотра приблизьте метку на 18 м к центру объекта.';}
+  if(o.searchHint)description+=' '+o.searchHint;
+  if(o.condition)extra+='<div class="condition-tag">'+esc(o.condition)+'</div>';
+ }else if(kind==='box'){
+  tag=known?'Грузовой контейнер':'Сигнал HEAF-K10';if(!known){description='Зафиксирована геометрия замкнутого объекта. Назначение и содержимое не установлены.';action='<button id="identifyBtn" class="primary" '+(!near?'disabled':'')+'>Осмотреть объект</button>';foot=near?'Можно проверить содержимое.':'Подойдите к сигналу не дальше 18 м.';}
+  else{extra='<ul class="found-list">'+o.contents.map(c=>'<li><span>'+esc(c.name)+'</span><b>×'+c.qty+'</b></li>').join('')+'</ul>';action='<button id="collectBtn" class="primary" '+(!near||taken?'disabled':'')+'>'+(taken?'✓ Отмечено: изъято':'Отметить как изъято')+'</button>';foot=taken?'Изъятие записано в полевом журнале.':near?'Состав установлен при осмотре.':'Для изъятия подойдите на 18 м.';}
+ }else if(kind==='resource'){tag='Ресурсный участок';extra='<span class="priority">ОЦЕНКА · '+o.amount+' ЕД.</span>';action='<button class="primary" id="collectBtn" '+(!near||taken?'disabled':'')+'>'+(taken?'✓ Отмечено: собрано':'Отметить сбор')+'</button>';foot=near?'Сбор фиксируется в журнале.':'Для сбора подойдите на 18 м.';
+ }else if(kind==='zone'){tag=o.biome;foot='ПРОФИЛЬ ЗОНЫ · '+o.danger+' риск';}
+ else if(kind==='pin'){tag='Личный ориентир';description='Ваша метка на карте. Можно использовать как точку маршрута.';action='<button id="deletePin" class="secondary danger">Удалить метку</button>';}
+ else{tag='Ориентир';foot='Наблюдаемая особенность рельефа.';}
+ const feature=T.feature?.(o.x,o.y),notes=known&&kind!=='pin';
+ $('detail').innerHTML='<button class="detail-close" id="closeDetail" aria-label="Закрыть сведения">×</button><div class="detail-type">'+esc(tag.toUpperCase())+'</div><h2>'+esc(nameOf(o,kind))+'</h2>'+extra+'<p class="description">'+esc(description)+'</p><div class="detail-stats"><div><small>ГЛУБИНА</small>'+depthLabel(o)+'</div><div><small>ДО ВИРТУОЗА</small><span id="targetRange">'+Math.round(metres(o,state.player))+' м</span></div><div><small>ОБЪЕКТ</small>'+esc(o.id.toUpperCase())+'</div></div>'+(feature?'<div class="substrate">'+esc(feature.substrate)+' · уклон '+Math.round(feature.slope)+'°</div>':'')+action+'<div class="detail-foot">'+esc(foot)+'</div><div class="detail-tools"><button class="secondary" id="addTargetRoute"><svg><use href="#i-route"/></svg>В маршрут</button><button class="secondary" id="markTarget"><svg><use href="#i-flag"/></svg>Метка</button></div>'+(notes?'<label class="note-label" for="objectNote">ПОЛЕВАЯ ЗАМЕТКА</label><textarea id="objectNote" maxlength="500" placeholder="Состояние, что забрать, куда вернуться…">'+esc(state.notes[o.id]||'')+'</textarea><div class="note-status">Сохраняется автоматически</div>':'');
+ $('closeDetail').onclick=closeDetail;
+ if($('inspectBtn'))$('inspectBtn').onclick=()=>{const r=M.inspect(state,W,o.id);if(!r.ok)return;updateAll();toast(r.identified.length?'Осмотр завершён: состав '+r.identified.length+' контейнера установлен.':r.found.length?'Замкнутый объект обнаружен. Подойдите ближе, чтобы проверить содержимое.':'Обследование завершено. Новых контейнеров нет.');const id=r.identified[0]||r.found[0];if(id)selection(boxes.get(id),'box');};
+ if($('identifyBtn'))$('identifyBtn').onclick=()=>{const r=M.identify(state,W,o.id);if(r.ok){updateAll();toast('Содержимое установлено. Находка добавлена в журнал.');}};
+ if($('collectBtn'))$('collectBtn').onclick=()=>{if(M.collect(state,W,o.id).ok){updateAll();toast('Отметка изъятия сохранена.');}};
+ if($('deletePin'))$('deletePin').onclick=()=>{state.pins=state.pins.filter(p=>p.id!==o.id);closeDetail();updateAll();};
+ $('addTargetRoute').onclick=()=>addRoute(o);$('markTarget').onclick=()=>openPin(o);
+ if($('objectNote'))$('objectNote').oninput=e=>{const value=e.target.value;if(value.trim())state.notes[o.id]=value;else delete state.notes[o.id];schedulePersist();};
+ overlayDirty=true;
+}
+function knownEntries(){return [...W.objects.map(o=>({o,kind:'object'})),...W.resources.map(o=>({o,kind:'resource'})),...state.detected.map(id=>({o:boxes.get(id),kind:'box'})).filter(e=>e.o),...W.zones.map(o=>({o,kind:'zone'})),...landmarks.map(o=>({o,kind:'landmark'})),...state.pins.map(o=>({o,kind:'pin'}))];}
+function renderNavigation(){const query=$('objectSearch').value.trim().toLocaleLowerCase('ru');const entries=knownEntries().filter(({o,kind})=>{if(navFilter==='priority'&&!(kind==='object'&&(o.priority===1||o.type==='capsule'||o.type==='replication')))return false;if(navFilter==='signals'&&kind!=='box')return false;if(navFilter==='marks'&&kind!=='pin')return false;return !query||[nameOf(o,kind),o.id,kind==='box'?'':o.biome||''].join(' ').toLocaleLowerCase('ru').includes(query);}).sort((a,b)=>metres(a.o,state.player)-metres(b.o,state.player));$('resultCount').textContent=entries.length+' объектов';$('objectList').innerHTML=entries.map(({o,kind},i)=>{const done=state.collected.includes(o.id)||state.searched.includes(o.id),label=kind==='box'?(state.identified.includes(o.id)?'КОНТЕЙНЕР':'НЕИЗВЕСТНЫЙ СИГНАЛ'):kind==='pin'?'ЛИЧНАЯ МЕТКА':kind==='zone'?'ЗОНА':kind==='landmark'?'ОРИЕНТИР':typeNames[o.type]||'РЕСУРС';return '<button class="object-row" data-object-id="'+esc(o.id)+'" data-kind="'+kind+'"><span class="object-row-icon '+(done?'done':'')+'">'+(done?'✓':kind==='box'?'◇':kind==='pin'?'⚑':kind==='zone'?'≈':o.priority===1?'Ⅰ':'⌁')+'</span><span class="object-row-main"><strong>'+esc(nameOf(o,kind))+'</strong><small>'+esc(label)+' · '+depthLabel(o)+'</small></span><span class="object-row-distance">'+Math.round(metres(o,state.player))+' м<small>↗</small></span></button>';}).join('')||'<p class="empty-list">'+(navFilter==='signals'?'Сигналов пока нет. Начните со сканирования сектора.':navFilter==='marks'?'Личных меток пока нет. Кнопка «Метка» оставит ориентир.':'По этому запросу ничего не найдено.')+'</p>';
+ $('objectList').querySelectorAll('[data-object-id]').forEach(b=>b.onclick=()=>{const entry=entries.find(e=>e.o.id===b.dataset.objectId&&e.kind===b.dataset.kind);if(entry){selection(entry.o,entry.kind,{center:true});if(view.width<900)closeNavigation();}});overlayDirty=true;}
+function openNavigation(){setMode('explore');$('routePanel').hidden=true;$('navigation').hidden=false;document.body.classList.add('navigation-open');$('navBtn').setAttribute('aria-expanded','true');renderNavigation();$('objectSearch').focus();overlayDirty=true;dirty=true;}
+function closeNavigation(){$('navigation').hidden=true;document.body.classList.remove('navigation-open');$('navBtn').setAttribute('aria-expanded','false');overlayDirty=true;dirty=true;}
+function addRoute(p){if(state.route.length>=24){toast('В маршруте уже 24 точки. Удалите лишние.');return;}const next=M.bounds(p);if(!next)return;state.route.push(next);$('routePanel').hidden=false;closeNavigation();updateAll({detail:false});}
+function routeMetrics(){return M.metrics([state.player,...state.route],T.depth);}
+function renderRoute(){profileStats=routeMetrics();const r=profileStats;$('routeStats').innerHTML='<div><strong>'+Math.round(r.distanceM)+'<small> м</small></strong><span>ПО ПЛАНУ</span></div><div><strong>'+Math.round(r.maxDepth)+'<small> м</small></strong><span>МАКС. ГЛУБИНА</span></div><div><strong>'+state.route.length+'<small> / 24</small></strong><span>ТОЧЕК</span></div>';$('profileDepths').textContent=Math.round(r.minDepth)+'—'+Math.round(r.maxDepth)+' м';$('profile').setAttribute('aria-label','Маршрут '+Math.round(r.distanceM)+' метров; глубины от '+Math.round(r.minDepth)+' до '+Math.round(r.maxDepth)+' метров. Спуск '+Math.round(r.descent)+', подъём '+Math.round(r.ascent)+' метров.');
+ const c=$('profile').getContext('2d'),w=500,h=150;c.clearRect(0,0,w,h);c.fillStyle='#092b36';c.fillRect(0,0,w,h);const range=Math.max(15,r.maxDepth-r.minDepth+8),base=Math.max(0,r.minDepth-4);c.strokeStyle='#83c6c71c';c.lineWidth=1;for(let j=1;j<4;j++){c.beginPath();c.moveTo(0,j*h/4);c.lineTo(w,j*h/4);c.stroke();}if(r.samples.length>1){const points=r.samples.map(p=>({x:8+p.distanceM/Math.max(r.distanceM,1)*(w-16),y:10+(p.depth-base)/range*(h-20)}));c.beginPath();c.moveTo(points[0].x,h);points.forEach(p=>c.lineTo(p.x,p.y));c.lineTo(points.at(-1).x,h);c.closePath();const g=c.createLinearGradient(0,0,0,h);g.addColorStop(0,'#71b9ad55');g.addColorStop(1,'#25596511');c.fillStyle=g;c.fill();c.beginPath();points.forEach((p,i)=>i?c.lineTo(p.x,p.y):c.moveTo(p.x,p.y));c.strokeStyle='#95d5bf';c.lineWidth=2;c.stroke();}else{c.fillStyle='#79a7ae';c.font='19px Arial,sans-serif';c.textAlign='center';c.fillText('Добавьте точки на карте',w/2,h/2+5);}
+ $('routeStops').innerHTML=state.route.map((p,i)=>'<button class="route-stop" data-stop="'+i+'"><b>'+String(i+1).padStart(2,'0')+'</b><span>'+esc(T.region(p.x,p.y))+'</span><small>'+depthLabel(p)+'</small></button>').join('');$('routeStops').querySelectorAll('[data-stop]').forEach(b=>b.onclick=()=>{const p=state.route[Number(b.dataset.stop)];focus(p.x,p.y,Math.max(1.5,view.scale));});$('routeUndo').disabled=!state.route.length;$('routeClear').disabled=!state.route.length;overlayDirty=true;dirty=true;}
+function openPin(p){if(state.pins.length>=30){toast('Можно оставить до 30 личных меток.');return;}pendingPin=M.bounds(p);if(!pendingPin)return;$('pinLabel').value='';$('pinDialog').showModal();setTimeout(()=>$('pinLabel').focus(),20);}
+function drawRoutes(){ctx.save();if(state.layers.trail&&state.trail.length>1){ctx.beginPath();state.trail.forEach((p,i)=>{const s=screen(p);i?ctx.lineTo(s.x,s.y):ctx.moveTo(s.x,s.y);});ctx.strokeStyle='#abecbc66';ctx.lineWidth=1.5;ctx.setLineDash([2,5]);ctx.stroke();}if(state.route.length){const points=[state.player,...state.route].map(screen);ctx.beginPath();points.forEach((p,i)=>i?ctx.lineTo(p.x,p.y):ctx.moveTo(p.x,p.y));ctx.strokeStyle='#d9d4aab3';ctx.lineWidth=1.4;ctx.setLineDash([6,5]);ctx.stroke();ctx.setLineDash([]);points.slice(1).forEach((p,i)=>{ctx.beginPath();ctx.arc(p.x,p.y,8,0,TAU);ctx.fillStyle='#163940';ctx.fill();ctx.strokeStyle='#dbd4ab';ctx.lineWidth=1;ctx.stroke();ctx.font='9px monospace';ctx.textAlign='center';ctx.fillStyle='#eee6bf';ctx.fillText(i+1,p.x,p.y+3);});}ctx.restore();}
+function drawPins(){for(const p of state.pins){const s=screen(p);ctx.save();ctx.translate(s.x,s.y);ctx.strokeStyle=p.color;ctx.fillStyle=p.color;ctx.lineWidth=1.4;ctx.beginPath();ctx.moveTo(0,6);ctx.lineTo(0,-10);ctx.stroke();ctx.beginPath();ctx.moveTo(0,-10);ctx.lineTo(9,-7);ctx.lineTo(0,-3);ctx.closePath();ctx.fill();ctx.font='10px Arial,sans-serif';ctx.textAlign='left';ctx.shadowColor='#032b38';ctx.shadowBlur=7;ctx.fillText(p.label.slice(0,28),14,0);ctx.restore();}}
+function drawMarkers(){if(state.layers.resources)for(const o of W.resources){const p=screen(o);if(p.x<-20||p.x>view.width+20||p.y<-20||p.y>view.height+20)continue;ctx.save();ctx.translate(p.x,p.y);ctx.rotate(Math.PI/4);ctx.globalAlpha=state.collected.includes(o.id)?.3:.85;ctx.fillStyle=o.type==='quartz'?'#c9ece2':o.type==='copper'?'#d1b584':'#a9bbc0';ctx.fillRect(-2.5,-2.5,5,5);ctx.strokeStyle='#16434e';ctx.lineWidth=1;ctx.strokeRect(-3.5,-3.5,7,7);ctx.restore();}for(const id of state.detected){const o=boxes.get(id);if(!o)continue;const p=screen(o),known=state.identified.includes(id),taken=state.collected.includes(id);ctx.save();ctx.translate(p.x,p.y);ctx.globalAlpha=taken?.45:1;ctx.fillStyle='#082d39';ctx.strokeStyle=known?'#e6c497':'#86e5ec';ctx.lineWidth=1.3;ctx.fillRect(-6,-6,12,12);ctx.strokeRect(-6,-6,12,12);ctx.font='9px monospace';ctx.fillStyle=known?'#e6c497':'#b5f4fa';ctx.textAlign='center';ctx.fillText(taken?'✓':known?'□':'?',0,3.5);ctx.restore();}}
+function drawScanner(t){if(cinematic)return;const p=screen(state.player),r=200*view.scale,a=(state.bearing-90)*Math.PI/180;ctx.save();ctx.translate(p.x,p.y);const sectors=state.scans.filter(s=>dist(s,state.player)<8).slice(-4);for(const sector of sectors){const b=(sector.bearing-90)*Math.PI/180;ctx.beginPath();ctx.moveTo(0,0);ctx.arc(0,0,r,b-Math.PI/4,b+Math.PI/4);ctx.closePath();ctx.fillStyle='#8bd6ba07';ctx.fill();ctx.strokeStyle='#9edec417';ctx.lineWidth=.7;ctx.stroke();}ctx.beginPath();ctx.moveTo(0,0);ctx.arc(0,0,r,a-Math.PI/4,a+Math.PI/4);ctx.closePath();const g=ctx.createRadialGradient(0,0,0,0,0,r);g.addColorStop(0,'#a9eabc0b');g.addColorStop(1,'#a0e5bb02');ctx.fillStyle=g;ctx.fill();ctx.strokeStyle='#b5eab344';ctx.lineWidth=.8;ctx.setLineDash([3,6]);ctx.stroke();ctx.setLineDash([]);if(scanBusy){const fraction=clamp((t-scanStart)/(reduced?300:1800),0,1),sweep=a-Math.PI/4+fraction*Math.PI/2;ctx.beginPath();ctx.moveTo(0,0);ctx.lineTo(Math.cos(sweep)*r,Math.sin(sweep)*r);ctx.strokeStyle='#c3f9db';ctx.lineWidth=1.2;ctx.shadowColor='#a3ebcf';ctx.shadowBlur=10;ctx.stroke();$('scanProgress').style.width=Math.round(fraction*100)+'%';}ctx.restore();}
+function drawPlayer(t){const p=screen(state.player),pulse=reduced?0:(Math.sin(t*.002)+1)*.5;ctx.save();ctx.translate(p.x,p.y);ctx.shadowColor='#a5ef85';ctx.shadowBlur=14;ctx.beginPath();ctx.arc(0,0,5.2,0,TAU);ctx.fillStyle='#b4f78e';ctx.fill();ctx.shadowBlur=0;ctx.strokeStyle='#efffd7';ctx.lineWidth=1;ctx.stroke();ctx.beginPath();ctx.arc(0,0,11+pulse*3,0,TAU);ctx.strokeStyle='#c0ef9766';ctx.stroke();ctx.rotate((state.bearing-90)*Math.PI/180);ctx.beginPath();ctx.moveTo(16,0);ctx.lineTo(10,-3);ctx.lineTo(10,3);ctx.closePath();ctx.fillStyle='#bcf5a2';ctx.fill();ctx.restore();ctx.save();ctx.font='600 10px Arial,sans-serif';ctx.fillStyle='#d1f6bd';ctx.textAlign='center';ctx.shadowColor='#06313b';ctx.shadowBlur=6;ctx.fillText('ВИРТУОЗ',p.x,p.y-23);ctx.restore();}
+function measureOverlays(){overlays=[];if(cinematic)return;const parent=$('mapArea').getBoundingClientRect();document.querySelectorAll('.expedition,.navigation,.route-panel,.detail,.toolbar,.minimap,.depth-legend,.layer-panel').forEach(el=>{if(el.hidden||!el.getClientRects().length||getComputedStyle(el).visibility==='hidden'||getComputedStyle(el).display==='none')return;const r=el.getBoundingClientRect();overlays.push({x:r.left-parent.left-8,y:r.top-parent.top-8,w:r.width+16,h:r.height+16});});overlayDirty=false;}
+function drawLabels(){if(!state.layers.labels)return;const playerScreen=screen(state.player),placed=[{x:playerScreen.x-45,y:playerScreen.y-38,w:90,h:26}];function label(text,x,y,sub,key=false){const p=screen({x,y}),size=key?11:10;ctx.font='500 '+size+'px Arial,sans-serif';const width=Math.max(ctx.measureText(text).width,sub?sub.length*4.4:0)+14,box={x:p.x-width/2,y:p.y-13,w:width,h:sub?31:18};if(box.x<8||box.x+box.w>view.width-8||box.y<8||box.y+box.h>view.height-28)return;const collision=r=>box.x<r.x+r.w&&box.x+box.w>r.x&&box.y<r.y+r.h&&box.y+box.h>r.y;if(overlays.some(collision)||placed.some(collision))return;placed.push(box);ctx.save();ctx.textAlign='center';ctx.shadowColor='#03222c';ctx.shadowBlur=5;ctx.fillStyle=key?'#ece8cb':'#c3dbd3';ctx.fillText(text,p.x,p.y);if(sub&&view.scale>.7){ctx.font='8px monospace';ctx.fillStyle=key?'#c8c8a8':'#8ebfbd';ctx.fillText(sub,p.x,p.y+13);}ctx.restore();}
+ if(state.layers.wrecks){label('КАПСУЛА ХАННЫ',390,308,'ОСТРОВОК 5 × 5 М',true);label('Отсек репликации',450,453,'REP–01 · АВАРИЙНОЕ ПИТАНИЕ',true);if(view.scale>1.2)label('Главная секция',595,505,'HUL–02 · ПРИОРИТЕТ I',true);}
+ if(view.scale>.55){label('КОРАЛЛОВЫЕ ПОЛЯ',238,510,'РИФОВЫЕ САДЫ');label('ОТМЕЛЬ ХАННЫ',300,230,'ПЕСЧАНЫЕ ТЕРРАССЫ');label('ТИХИЙ РИФ',560,366,'КОРАЛЛОВАЯ ТЕРРАСА');label('ЛЕС ПРИЛИВОВ',365,688,'ДОЛИНА ВОДОРОСЛЕЙ');label('Грот скатов',270,773,'ВХОД В ПЕЩЕРУ');label('Светящийся свод',609,686,'ВХОД В ПЕЩЕРУ');label('Расколотая арка',809,430,'ВХОД В ПЕЩЕРУ');label('СИНИЙ ПРОВАЛ',820,787,'ГЛУБОКОВОДНЫЙ РАЗЛОМ');label('ПОЛЕ РАЗРУШЕНИЯ',608,599,'ОСНОВНОЕ СКОПЛЕНИЕ');}
+ if(view.scale>2.3)landmarks.forEach(o=>label(o.name,o.x,o.y-15,null));
+ if(state.layers.contours&&view.scale>.7)for(const [x,y]of [[140,300],[615,351],[650,700],[730,510],[840,650],[860,880]]){const p=screen({x,y});ctx.font='9px monospace';ctx.textAlign='center';ctx.fillStyle='#b2d6c8a6';ctx.fillText(Math.round(T.depth(x,y)/10)*10+' м',p.x,p.y);}}
+function drawMinimap(){const c=miniCtx,dpr=2,w=176,h=132,s=.12,ox=28,oy=6;c.setTransform(dpr,0,0,dpr,0,0);T.draw(c,{width:w,height:h,scale:s,offsetX:ox,offsetY:oy},{ecology:false,contours:false,grid:false});c.strokeStyle='#a7d4d03d';c.lineWidth=.5;c.strokeRect(ox,oy,120,120);for(const o of W.objects.filter(o=>o.priority===1)){c.fillStyle='#a6c5bd';c.fillRect(ox+o.x*s-1,oy+o.y*s-1,2,2);}c.beginPath();if(state.route.length){c.moveTo(ox+state.player.x*s,oy+state.player.y*s);state.route.forEach(p=>c.lineTo(ox+p.x*s,oy+p.y*s));c.strokeStyle='#dac995';c.lineWidth=.7;c.stroke();}c.fillStyle='#bbf695';c.beginPath();c.arc(ox+state.player.x*s,oy+state.player.y*s,2.5,0,TAU);c.fill();const tl=world(0,0),br=world(view.width,view.height);c.strokeStyle='#d9e7cd99';c.lineWidth=.8;c.strokeRect(ox+tl.x*s,oy+tl.y*s,(br.x-tl.x)*s,(br.y-tl.y)*s);}
+function frame(t){requestAnimationFrame(frame);if(document.hidden)return;const wasDirty=dirty;const animating=!reduced&&(state.layers.ecology||scanBusy);if(!dirty&&!animating)return;if(!dirty&&t-lastFrame<40)return;lastFrame=t;dirty=false;if(overlayDirty)measureOverlays();T.draw(ctx,view,state.layers);if(state.layers.wrecks)W.objects.forEach(o=>window.WreckRenderer.draw(ctx,view,o,{selected:selected?.o.id===o.id,hover:hover?.o.id===o.id,searched:state.searched.includes(o.id),time:t,reduceMotion:reduced}));T.drawLife(ctx,view,t,{...state.layers,reduceMotion:reduced});drawRoutes();drawScanner(t);drawMarkers();drawPins();drawLabels();drawPlayer(t);if(!cinematic&&(wasDirty||t-lastMini>250)){drawMinimap();lastMini=t;}}
+function hit(p){let best=null,score=Infinity;const probe=(o,kind,r)=>{const d=dist(o,p);if(d<r&&d/r<score){best={o,kind};score=d/r;}};state.pins.forEach(o=>probe(o,'pin',13/view.scale));if(best)return best;state.detected.forEach(id=>{const o=boxes.get(id);if(o)probe(o,'box',12/view.scale);});if(best)return best;if(state.layers.resources)W.resources.forEach(o=>probe(o,'resource',10/view.scale));if(best)return best;if(state.layers.wrecks)W.objects.forEach(o=>probe(o,'object',Math.max(o.size*.5,10/view.scale)));if(best)return best;landmarks.forEach(o=>probe(o,'landmark',16/view.scale));return best;}
+function pointerPos(e){const r=canvas.getBoundingClientRect();return {x:e.clientX-r.left,y:e.clientY-r.top};}
+function updateHover(p,w){const next=mode==='explore'?hit(w):null;if(hover?.o.id!==next?.o.id){hover=next;dirty=true;}canvas.style.cursor=mode!=='explore'?'crosshair':next?'pointer':'grab';if(next&&!cinematic){$('hoverTip').innerHTML='<strong>'+esc(nameOf(next.o,next.kind))+'</strong><span>'+depthLabel(next.o)+' · '+Math.round(metres(next.o,state.player))+' м от Виртуоза</span>';$('hoverTip').style.left=clamp(p.x+16,8,view.width-230)+'px';$('hoverTip').style.top=clamp(p.y+14,8,view.height-85)+'px';$('hoverTip').hidden=false;}else $('hoverTip').hidden=true;}
+canvas.addEventListener('pointerdown',e=>{if(e.button!==0)return;const p=pointerPos(e);activePointers.set(e.pointerId,p);canvas.setPointerCapture(e.pointerId);$('hoverTip').hidden=true;if(activePointers.size===2){const ps=[...activePointers.values()];gesture={distance:Math.max(1,dist(ps[0],ps[1])),scale:view.scale,center:world((ps[0].x+ps[1].x)/2,(ps[0].y+ps[1].y)/2)};drag=null;return;}drag={start:p,last:p,moved:false,player:mode==='explore'&&dist(p,screen(state.player))<20,before:{...state.player},pointerId:e.pointerId};canvas.classList.add('dragging');});
+canvas.addEventListener('pointermove',e=>{const p=pointerPos(e),w=world(p.x,p.y);$('cursorCoords').textContent='X '+Math.round((w.x-390)*.5)+' / Y '+Math.round((w.y-330)*.5)+' М · '+depthLabel(w);if(activePointers.has(e.pointerId))activePointers.set(e.pointerId,p);if(gesture&&activePointers.size===2){const ps=[...activePointers.values()],cx=(ps[0].x+ps[1].x)/2,cy=(ps[0].y+ps[1].y)/2;view.scale=clamp(gesture.scale*dist(ps[0],ps[1])/gesture.distance,.2,5.2);view.offsetX=cx-gesture.center.x*view.scale;view.offsetY=cy-gesture.center.y*view.scale;dirty=true;updateScale();return;}if(drag&&drag.pointerId===e.pointerId){if(dist(p,drag.start)>5)drag.moved=true;if(drag.moved){if(drag.player)movePlayer(w,{commit:false});else{view.offsetX+=p.x-drag.last.x;view.offsetY+=p.y-drag.last.y;dirty=true;}}drag.last=p;}else if(e.pointerType!=='touch')updateHover(p,w);});
+function clickMap(p){const w=world(p.x,p.y);if(mode==='position'){movePlayer(w);setMode('explore');toast('Позиция Виртуоза обновлена.');}else if(mode==='route')addRoute(w);else if(mode==='pin')openPin(w);else{const h=hit(w);if(h)selection(h.o,h.kind);else{const zone=[...W.zones].sort((a,b)=>dist(a,w)-dist(b,w))[0];if(zone&&dist(zone,w)<65)selection(zone,'zone');else closeDetail();}}}
+canvas.addEventListener('pointerup',e=>{const p=pointerPos(e);activePointers.delete(e.pointerId);if(gesture){gesture=null;drag=null;canvas.classList.remove('dragging');persist();return;}if(drag&&drag.pointerId===e.pointerId){if(!drag.moved)clickMap(p);else if(drag.player){pushPosition(drag.before);updateAll();}else persist();drag=null;}canvas.classList.remove('dragging');});
+canvas.addEventListener('pointercancel',e=>{activePointers.delete(e.pointerId);if(drag?.player){pushPosition(drag.before);updateAll();}gesture=null;drag=null;canvas.classList.remove('dragging');});canvas.addEventListener('pointerleave',()=>{$('hoverTip').hidden=true;hover=null;dirty=true;});canvas.addEventListener('wheel',e=>{e.preventDefault();const p=pointerPos(e);zoom(Math.exp(-e.deltaY*.0015),p.x,p.y);},{passive:false});canvas.addEventListener('dblclick',e=>{if(mode==='explore'){const p=pointerPos(e);zoom(1.6,p.x,p.y);}});
+function download(name,data,type){const u=URL.createObjectURL(new Blob([data],{type})),a=document.createElement('a');a.href=u;a.download=name;a.click();setTimeout(()=>URL.revokeObjectURL(u),2000);}
+function snapshot(){const c=document.createElement('canvas');c.width=canvas.width;c.height=canvas.height;const g=c.getContext('2d');g.drawImage(canvas,0,0);const ratio=canvas.width/view.width;g.scale(ratio,ratio);g.fillStyle='#062734e8';g.fillRect(20,20,285,56);g.fillStyle='#d7eee4';g.font='17px Arial,sans-serif';g.fillText('ОБЛОМКИ ТАНАТОСА',35,44);g.fillStyle='#8cb6bd';g.font='9px Arial,sans-serif';g.fillText('ВИРТУОЗ / ТБС «ОПЛОТ» · ПОЛЕВОЙ АТЛАС',35,62);const width=150,metres=width/view.scale*.5;g.fillStyle='#082b38e8';g.fillRect(20,view.height-66,200,46);g.strokeStyle='#b8d9d3';g.lineWidth=1;g.beginPath();g.moveTo(35,view.height-48);g.lineTo(35,view.height-43);g.lineTo(35+width,view.height-43);g.lineTo(35+width,view.height-48);g.stroke();g.fillStyle='#c3e0d5';g.font='9px Arial,sans-serif';g.fillText(Math.round(metres)+' м · текущий масштаб',35,view.height-29);c.toBlob(blob=>{if(!blob){toast('Не удалось сохранить изображение.');return;}const u=URL.createObjectURL(blob),a=document.createElement('a');a.href=u;a.download='thanatos-map-view.png';a.click();setTimeout(()=>URL.revokeObjectURL(u),2000);},'image/png');}
+function exportProgress(){persist();download('thanatos-progress.json',JSON.stringify(state,null,2),'application/json');}
+function renderJournal(){const entries=state.identified.map(id=>boxes.get(id)).filter(Boolean),rs=state.collected.map(id=>resources.get(id)).filter(Boolean),summary=new Map();for(const b of entries.filter(b=>state.collected.includes(b.id)))for(const item of b.contents)summary.set(item.name,(summary.get(item.name)||0)+item.qty);$('journalContent').innerHTML='<div class="journal-summary"><div><strong>'+state.searched.length+'</strong><span>обломков осмотрено</span></div><div><strong>'+entries.length+'</strong><span>контейнеров найдено</span></div><div><strong>'+state.collected.length+'</strong><span>отметок изъятия</span></div></div>'+(summary.size?'<div class="cargo-summary"><span class="eyebrow">ИЗЪЯТО ИЗ КОНТЕЙНЕРОВ</span><ul class="found-list">'+[...summary].map(([name,n])=>'<li><span>'+esc(name)+'</span><b>×'+n+'</b></li>').join('')+'</ul></div>':'')+(entries.length||rs.length?entries.map(b=>'<div class="journal-entry"><div><button data-journal="'+b.id+'" class="journal-target">'+esc(b.name)+'</button><small>'+ (state.collected.includes(b.id)?'ИЗЪЯТО':'НАЙДЕНО')+'</small></div><p>'+b.contents.map(c=>esc(c.name)+' ×'+c.qty).join(' · ')+'</p></div>').join('')+rs.map(r=>'<div class="journal-entry"><div><span>'+esc(r.name)+'</span><small>СОБРАНО</small></div><p>Оценка участка: '+r.amount+' ед. · '+r.id+'</p></div>').join(''):'<p>Журнал пока пуст. Выберите обломок в «Объектах» или на карте и обследуйте его вблизи.</p>')+(state.detected.length>state.identified.length?'<p class="small-note">Неосмотренных сигналов: '+(state.detected.length-state.identified.length)+'. Они обозначены голубыми квадратами.</p>':'');$('journalContent').querySelectorAll('[data-journal]').forEach(b=>b.onclick=()=>{$('journalDialog').close();selection(boxes.get(b.dataset.journal),'box',{center:true});});}
+function report(){const lines=['ТАНАТОС / ПОЛЕВОЙ ОТЧЁТ','Оператор: Виртуоз · ТБС «Оплот»','Позиция: E '+Math.round((state.player.x-390)*.5)+' / S '+Math.round((state.player.y-330)*.5)+' м','Глубина: '+depthLabel(state.player),'Обследовано фрагментов: '+state.searched.length,'Обнаружено сигналов: '+state.detected.length,'Осмотрено контейнеров: '+state.identified.length,''];for(const id of state.identified){const b=boxes.get(id);lines.push((state.collected.includes(id)?'[ИЗЪЯТО] ':'[НАЙДЕНО] ')+b.name+' · '+depthLabel(b),...b.contents.map(c=>'  '+c.name+' ×'+c.qty),'');}for(const id of state.collected){const r=resources.get(id);if(r)lines.push('[СОБРАНО] '+r.name+' · оценка '+r.amount+' ед.');}if(Object.keys(state.notes).length){lines.push('','ПОЛЕВЫЕ ЗАМЕТКИ');for(const [id,note]of Object.entries(state.notes))lines.push(id+': '+note);}download('thanatos-field-report.txt',lines.join('\n'),'text/plain;charset=utf-8');}
+function syncLayerInputs(){document.querySelectorAll('[data-layer]').forEach(i=>i.checked=state.layers[i.dataset.layer]);}
+function toggleCinematic(force){cinematic=typeof force==='boolean'?force:!cinematic;document.body.classList.toggle('cinematic',cinematic);$('restoreUi').hidden=!cinematic;$('layerPanel').hidden=true;$('layersBtn').classList.remove('active');$('hoverTip').hidden=true;resize();dirty=true;overlayDirty=true;}
+$('exploreBtn').onclick=()=>setMode('explore');$('positionBtn').onclick=()=>setMode(mode==='position'?'explore':'position');$('routeBtn').onclick=()=>{if(mode==='route'){setMode('explore');$('routePanel').hidden=true;}else setMode('route');};$('pinBtn').onclick=()=>setMode(mode==='pin'?'explore':'pin');$('zoomIn').onclick=()=>zoom(1.25);$('zoomOut').onclick=()=>zoom(.8);$('fitBtn').onclick=fitAll;$('miniFit').onclick=fitAll;$('islandBtn').onclick=()=>{focus(390,365,3);selection(objects.get('CAP-01'),'object');};$('followBtn').onclick=()=>focus(state.player.x,state.player.y,Math.max(view.scale,1.6));document.querySelector('.brand').onclick=e=>{e.preventDefault();overview();};$('scanBtn').onclick=scan;$('turnBtn').onclick=()=>{state.bearing=(state.bearing+90)%360;updateAll({detail:false});};$('bearingInput').oninput=e=>{state.bearing=Number(e.target.value);updateTelemetry();dirty=true;schedulePersist();};$('collapseMission').onclick=()=>{const c=document.querySelector('.expedition').classList.toggle('collapsed');$('collapseMission').textContent=c?'+':'−';$('collapseMission').setAttribute('aria-label',c?'Развернуть сведения':'Свернуть сведения');overlayDirty=true;dirty=true;};$('undoPosition').onclick=()=>{const p=positionHistory.pop();if(p){state.player=p;updateAll();toast('Предыдущая позиция восстановлена.');}};
+$('navBtn').onclick=()=>{$('navigation').hidden?openNavigation():closeNavigation();};$('closeNav').onclick=closeNavigation;$('objectSearch').oninput=renderNavigation;$('objectFilters').querySelectorAll('button').forEach(b=>b.onclick=()=>{navFilter=b.dataset.filter;$('objectFilters').querySelectorAll('button').forEach(n=>n.classList.toggle('active',n===b));renderNavigation();});$('closeRoute').onclick=()=>{$('routePanel').hidden=true;setMode('explore');};$('routeUndo').onclick=()=>{state.route.pop();updateAll({detail:false});};$('routeClear').onclick=()=>{state.route=[];updateAll({detail:false});};$('pinForm').onsubmit=e=>{e.preventDefault();if(!pendingPin||!$('pinLabel').value.trim())return;const p={...pendingPin,id:'pin-'+Date.now().toString(36),label:$('pinLabel').value.trim().slice(0,48),color:'#edc58d'};state.pins.push(p);pendingPin=null;$('pinDialog').close();setMode('explore');updateAll({detail:false});selection({...p,name:p.label},'pin');toast('Личная метка сохранена.');};
+$('layersBtn').onclick=()=>{$('layerPanel').hidden=!$('layerPanel').hidden;$('layersBtn').classList.toggle('active',!$('layerPanel').hidden);dirty=true;overlayDirty=true;};document.querySelectorAll('[data-layer]').forEach(i=>i.onchange=()=>{state.layers[i.dataset.layer]=i.checked;updateAll({detail:false});});$('snapshotBtn').onclick=snapshot;$('cinemaBtn').onclick=()=>toggleCinematic();$('restoreUi').onclick=()=>toggleCinematic(false);
+$('minimap').onclick=e=>{const r=e.target.getBoundingClientRect(),x=(e.clientX-r.left)/r.width*176,y=(e.clientY-r.top)/r.height*132;const p=M.bounds({x:(x-28)/.12,y:(y-6)/.12});focus(p.x,p.y);};$('minimap').onkeydown=e=>{if(e.key==='Enter')fitAll();};$('journalBtn').onclick=()=>{renderJournal();$('journalDialog').showModal();};$('guideBtn').onclick=()=>{$('ecologyContent').innerHTML=(W.ecology||[]).map((e,i)=>'<article><span class="ecology-number">'+String(i+1).padStart(2,'0')+'</span><div><h3>'+esc(e.name)+'</h3><small>'+esc(e.habitat)+'</small><p>'+esc(e.description)+'</p></div></article>').join('');$('guideDialog').showModal();};$('helpBtn').onclick=()=>$('helpDialog').showModal();$('helpGuide').onclick=()=>{$('helpDialog').close();$('guideBtn').click();};document.querySelectorAll('[data-close]').forEach(b=>b.onclick=()=>b.closest('dialog').close());document.querySelectorAll('dialog').forEach(d=>d.addEventListener('click',e=>{if(e.target===d){const r=d.getBoundingClientRect();if(e.clientX<r.left||e.clientX>r.right||e.clientY<r.top||e.clientY>r.bottom)d.close();}}));
+$('shareBtn').onclick=()=>{if(location.protocol==='file:'){renderJournal();$('journalDialog').showModal();toast('Передайте игроку HTML-карту и файл прогресса из журнала.');return;}const url=location.href.split('#')[0]+'#s='+M.encode(state);$('shareUrl').value=url.length<=12000?url:'';$('shareCopy').disabled=url.length>12000;$('shareStatus').textContent=url.length>12000?'В экспедиции много заметок и точек. Передайте файл прогресса: он сохранит всё без сокращений.':'Передаётся снимок. Доступ к сайту настраивается отдельно; совместной синхронизации нет.';$('shareDialog').showModal();};$('shareCopy').onclick=async()=>{try{await navigator.clipboard.writeText($('shareUrl').value);$('shareStatus').textContent='Ссылка скопирована.';}catch{$('shareUrl').focus();$('shareUrl').select();$('shareStatus').textContent='Ссылка выделена. Нажмите Ctrl+C или скопируйте вручную.';}};$('shareFile').onclick=exportProgress;$('exportBtn').onclick=exportProgress;$('reportBtn').onclick=report;$('importBtn').onclick=()=>$('importFile').click();$('importFile').onchange=async e=>{const f=e.target.files[0];if(!f)return;try{if(f.size>300000)throw Error();const next=M.validate(JSON.parse(await f.text()),W),importedView=next.view;cancelScan();closeDetail();state=next;positionHistory=[];syncLayerInputs();if(importedView)focus(importedView.center.x,importedView.center.y,importedView.scale);else focus(state.player.x,state.player.y);updateAll();renderJournal();toast('Прогресс восстановлен: позиция, находки, маршрут и заметки.');}catch{toast('Файл не подходит. Нужен JSON прогресса этой карты.');}e.target.value='';};
+let resetArmed=false;$('resetBtn').onclick=()=>{if(!resetArmed){resetArmed=true;$('resetBtn').textContent='Повторите для сброса';setTimeout(()=>{resetArmed=false;$('resetBtn').textContent='Сбросить';},4500);return;}cancelScan();closeDetail();state=M.create(W);positionHistory=[];syncLayerInputs();setMode('explore');updateAll();renderJournal();overview();$('resetBtn').textContent='Сбросить';resetArmed=false;toast('Начата новая экспедиция.');};
+document.addEventListener('keydown',e=>{if(document.querySelector('dialog[open]')||/INPUT|TEXTAREA|SELECT/.test(e.target.tagName))return;if(e.key==='Escape'){if(cinematic)toggleCinematic(false);setMode('explore');closeDetail();closeNavigation();$('routePanel').hidden=true;$('layerPanel').hidden=true;$('layersBtn').classList.remove('active');overlayDirty=true;dirty=true;}else if(e.key.toLowerCase()==='h')toggleCinematic();else if(e.key==='+'||e.key==='='){zoom(1.2);e.preventDefault();}else if(e.key==='-'){zoom(1/1.2);e.preventDefault();}else if(['ArrowUp','ArrowDown','ArrowLeft','ArrowRight'].includes(e.key)){const step=e.shiftKey?20:4,dx=e.key==='ArrowRight'?step:e.key==='ArrowLeft'?-step:0,dy=e.key==='ArrowDown'?step:e.key==='ArrowUp'?-step:0;movePlayer({x:state.player.x+dx,y:state.player.y+dy});e.preventDefault();}});
+window.addEventListener('hashchange',()=>{if(!location.hash.startsWith('#s='))return;try{const next=M.decode(location.hash.slice(3),W),snapshotView=next.view;cancelScan();closeDetail();state=next;positionHistory=[];syncLayerInputs();if(snapshotView)focus(snapshotView.center.x,snapshotView.center.y,snapshotView.scale);else focus(state.player.x,state.player.y);updateAll();toast('Снимок экспедиции загружен.');}catch{toast('Ссылка повреждена. Текущий прогресс сохранён.');}try{history.replaceState(null,'',location.pathname+location.search);}catch{}});
+window.addEventListener('resize',resize);window.addEventListener('pagehide',persist);syncLayerInputs();resize();updateTelemetry();persist();requestAnimationFrame(frame);requestAnimationFrame(()=>{$('loading').classList.add('done');setTimeout(()=>$('loading').hidden=true,500);});if(startupMessage)toast(startupMessage);else if(!localExists)setTimeout(()=>toast('Зелёная метка — ваша позиция. «Объекты» помогут выбрать первую цель.'),1400);
+window.Thanatos={getState:()=>JSON.parse(JSON.stringify(state)),getView:()=>({...view}),depth:T.depth};
+})();
+
+</script>
+</body></html>
